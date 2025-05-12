@@ -1,10 +1,5 @@
 # FlaskApp
 
-- The goal of this app is a booking system with the following functionality
-- Can create a user account, sign in and out of it
-- Only admin users can delete data and create other admin users
-
-# Other idea
 - Scrum/agile board
 - tickets, sprints
 - can have sprintID, UserID records for tickets as foreign keys
@@ -13,6 +8,8 @@
 - Must change password when logging in root for first time
 - Can view tickets by sprint or by user
 - Can view dates tied to each sprint
+- Maybe able to view total story points per sprint
+- Add in SQL injection protection
 
 # Code
 
@@ -27,11 +24,6 @@ Db.py
 - sqlite
 - create database
 - contain functions for modifying database
-
-# Tables
-- Table 1: user details (id as foreign key?)
-- Table 2: passwords (uses id as primary key)
-- Table 3: bookings data (Name, email etc)
 
 # Agile
 
