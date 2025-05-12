@@ -62,8 +62,11 @@ def login():
     cur1.execute("PRAGMA foreign_keys = ON;")
     username = input("Username: ")
     password = input("Password: ")
+    ####################################################
+    ## ADD ERROR HADNLING HERE FOR INCORRECT/NULL VALUES
     id = cur.execute("SELECT userID FROM users WHERE name=?", (username,)).fetchone()[0]
     pw = cur.execute("SELECT logins.password FROM users, logins WHERE users.userID=logins.userID & users.userID="+str(id)).fetchone()[0]
+    ####################################################
     if password == str(pw):
         print("login successful")
         return id
