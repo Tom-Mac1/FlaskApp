@@ -7,11 +7,12 @@ cur = con.cursor()
 cur.execute("PRAGMA foreign_keys = ON;")
 
 # Table 1: Users
+# AccessID: 1 = admin, 2 = user
 cur.execute("""
 CREATE TABLE IF NOT EXISTS users (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    email TEXT NOT NULL
+    accessID INTEGER NOT NULL
 )
 """)
 
@@ -45,35 +46,42 @@ CREATE TABLE IF NOT EXISTS tickets (
     FOREIGN KEY (userID) REFERENCES users(userID)
 )
 """)
-# CREATE BASE (ROOT) USER AND PASSWORD
-#cur.execute("INSERT INTO users (name, email) VALUES ('root', 'root@sprints.com')")
-cur.execute("INSERT INTO users (name, email) VALUES (?, ?)", ("root", "root@sprints.com"))
-cur.execute("INSERT INTO logins (userID, password) VALUES (?, ?)", (1, "test"))
 
-# QUERIES
+# CREATE ADMIN (ROOT) USER AND PASSWORD
+cur.execute("INSERT INTO users (name, accessID) VALUES (?, ?)", ("root", 1))
+cur.execute("INSERT INTO logins (userID, password) VALUES (?, ?)", (1, "rootPW"))
 
+# CREATE STANDARD USER AND PASSWORD
+cur.execute("INSERT INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
+cur.execute("INSERT INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
 
-for row in cur.execute("SELECT name FROM users"):
-    print(row)
-
+# Login
 def login():
     con1 = sqlite3.connect("FlaskAppDB.db")
     cur1 = con1.cursor()
     cur1.execute("PRAGMA foreign_keys = ON;")
     username = input("Username: ")
     password = input("Password: ")
-    ####################################################
-    ## ADD ERROR HADNLING HERE FOR INCORRECT/NULL VALUES
-    id = cur.execute("SELECT userID FROM users WHERE name=?", (username,)).fetchone()[0]
-    pw = cur.execute("SELECT logins.password FROM users, logins WHERE users.userID=logins.userID & users.userID="+str(id)).fetchone()[0]
-    ####################################################
+    idList = cur.execute("SELECT userID FROM users WHERE name=?", (username,)).fetchone()
+    if idList != None:
+        id = idList[0]
+    else:
+        id = 0
+    pw = cur.execute("SELECT password FROM logins WHERE userID="+str(id)).fetchone()
+    if pw == None:
+        print("Username or Password incorrect")
+        return 0
+    else:
+        pw = pw[0]
     if password == str(pw):
         print("login successful")
         return id
     else:
         print("Username or Password incorrect")
         return 0
-    
+
+# If current account is 0 then there is no active session
+# Current account will link to account number of active user session
 currentAcc = 0
 while currentAcc==0:
     currentAcc = login()
