@@ -1,3 +1,8 @@
+Priority items
+- Make join page work 
+- Test join page
+- Stop database issue creating duplicate records
+
 Add the following pages
 - tickets
 

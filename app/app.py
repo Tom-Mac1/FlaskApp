@@ -48,20 +48,24 @@ def login():
         
 @app.route('/join', methods=['GET', 'POST'])
 def join():
-    with sqlite3.connect("FlaskAppDB.db") as users:
-        cursor = users.cursor()
-        name = request.form['name']
-        password = request.form['password']
-        cursor.execute("INSERT INTO users \
-        (name,accessID) VALUES (?,?)",
-                        (name, 2))
-        userID = cursor.execute("SELECT userID FROM users WHERE name = ?", (name,)).fetchone()[0]
-        cursor.execute("INSERT INTO logins \
-        (userID,password) VALUES (?,?)",
-                        (userID, password))
-        cursor.close()
-        users.commit()
-        users.close()
+    if request.method == 'POST':
+        with sqlite3.connect("FlaskAppDB.db") as users:
+            cursor = users.cursor()
+            name = request.form['name']
+            password = request.form['password']
+            cursor.execute("INSERT INTO users \
+            (name,accessID) VALUES (?,?)",
+                            (name, 2))
+            userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
+            cursor.execute("INSERT INTO logins \
+            (userID,password) VALUES (?,?)",
+                            (userID, password))
+            cursor.close()
+            users.commit()
+            users.close()
+            return render_template("home.html")
+    else:
+        return render_template('join.html')
 
 @app.route('/sprints')
 def sprints():
