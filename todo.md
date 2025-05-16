@@ -14,6 +14,8 @@ Functionality
 - Pop up message for user created
 - Input validation
 - Password rules/constraints
+- create sprints
+- create tickets
 - Add a button to tickets page for assigning a user
 - Add a button on sprints to view participants
 - View tickets by sprint or user
