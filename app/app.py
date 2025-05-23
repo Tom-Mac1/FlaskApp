@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request
+#from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, flash
+import secrets
 import sqlite3
 from db_init import createTables, initialValues
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 
-# find a way around the fact that db must be deleted every run
 createTables()
 initialValues()
 
@@ -12,8 +14,16 @@ initialValues()
 def index():
     return render_template('index.html')
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash("You have been logged out.", "info")
+    return render_template('index.html')
+
 @app.route('/home')
 def home():
+    if session['user_id'] == None:
+        return render_template('index.html')
     return render_template('home.html')
 
 @app.route('/about')
@@ -34,14 +44,16 @@ def login():
             id = idList[0]
         pw = cur1.execute("SELECT password FROM logins WHERE userID="+str(id)).fetchone()
         if pw == None:
-            #set a message to display saying invalid password or username
             return render_template('index.html')
         else:
             pw = pw[0]
         if password == str(pw):
+            # create user session
+            session['user_id'] = id
+            session['username'] = name
+            flash("Logged in successfully!", "success")
             return render_template("home.html")
         else:
-            #set a message to display saying invalid password or username
             return render_template('index.html')
     else:
         return render_template('login.html')
@@ -52,7 +64,9 @@ def join():
         with sqlite3.connect("FlaskAppDB.db") as users:
             cursor = users.cursor()
             name = request.form['name']
+            # TODO: check if name already exists
             password = request.form['password']
+            # TODO: check if password is strong enough
             cursor.execute("INSERT INTO users \
             (name,accessID) VALUES (?,?)",
                             (name, 2))
@@ -62,19 +76,39 @@ def join():
                             (userID, password))
             cursor.close()
             users.commit()
-            users.close()
             return render_template("home.html")
     else:
         return render_template('join.html')
 
 @app.route('/sprints')
 def sprints():
-    connect = sqlite3.connect('FlaskAppDB.db')
-    cursor = connect.cursor()
-    cursor.execute('SELECT * FROM users')
+    if session['user_id'] == None:
+        return render_template('index.html')
+    else:
+        connect = sqlite3.connect('FlaskAppDB.db')
+        cursor = connect.cursor()
+        cursor.execute('SELECT * FROM sprints')
 
-    data = cursor.fetchall()
-    return render_template("sprints.html", data=data)
+        data = cursor.fetchall()
+        return render_template("sprints.html", data=data)
+
+# @app.route('/createSprints')
+# def sprints():
+#     if session.get('userID') == None:
+#         return render_template('index.html')
+#     else:
+#         if request.method == 'POST':
+#             with sqlite3.connect("FlaskAppDB.db") as users:
+#                 cursor = users.cursor()
+#                 start = request.form['start']
+#                 end = request.form['end']
+#                 # TODO: check if start date is before end date
+#                 cursor.execute("INSERT INTO sprints (name,accessID) VALUES (?,?)", (start, end))
+#                 cursor.close()
+#                 users.commit()
+#                 return render_template("sprints.html")
+#         else:
+#             return render_template('createSprints.html')
 
 if __name__ == '__main__':
     app.run(debug=False)

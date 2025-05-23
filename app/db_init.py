@@ -12,7 +12,7 @@ def createTables():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
         userID INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
+        name TEXT UNIQUE NOT NULL,
         accessID INTEGER NOT NULL
     )
     """)

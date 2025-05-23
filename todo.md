@@ -1,15 +1,16 @@
-Priority items
-- Make join page work 
-- Test join page
+# Priority items
 - Stop database issue creating duplicate records
 
-Add the following pages
+# Add the following pages
 - tickets
+- create sprint
+- create tickets
+- create user
 
-Update all pages to look nicer
+# Update all pages to look nicer
 - create custom css for it
 
-Functionality
+# Functionality
 - Pop up message for welcome, or invalid login
 - Pop up message for user created
 - Input validation
@@ -23,13 +24,24 @@ Functionality
 - Set so only admin user can delete sprints/tickets
 - Create button in sprints page that allows editing a specific sprint
 
-DB
+# DB
 - Tickets table
 - Link tickets to sprints
 - Link tickets to users
 - Link users to sprints
 
-Extra bits
+# Extra bits
 - Documentation for app design
 - Documentation for DB relationships
 - Create a mini sprint to demonstrate agile working
+
+# Notes/Direction
+- Security: cannot add /home or /sprints etc into url, must have active session
+- Security: PW in separate db, add hashing though
+
+# find a way around the fact that db must be deleted every run
+# Add an adminHome page that has option to create admin user, delete items
+# Use flask session to store user ID and name, validate before changing pages
+#   Have a separate functionality on home page for admins
+#   If no active session, re route to index (avoid being able to type "/home" in URL for example)
+# Use flash to display messages to user
