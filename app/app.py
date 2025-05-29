@@ -74,9 +74,11 @@ def join():
             cursor.execute("INSERT INTO logins \
             (userID,password) VALUES (?,?)",
                             (userID, password))
-            cursor.close()
-            users.commit()
-            return render_template("home.html")
+            idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
+            id = idList[0]
+            session['user_id'] = id
+            session['username'] = name
+        return render_template("home.html")
     else:
         return render_template('join.html')
 
@@ -92,23 +94,21 @@ def sprints():
         data = cursor.fetchall()
         return render_template("sprints.html", data=data)
 
-# @app.route('/createSprints')
-# def sprints():
-#     if session.get('userID') == None:
-#         return render_template('index.html')
-#     else:
-#         if request.method == 'POST':
-#             with sqlite3.connect("FlaskAppDB.db") as users:
-#                 cursor = users.cursor()
-#                 start = request.form['start']
-#                 end = request.form['end']
-#                 # TODO: check if start date is before end date
-#                 cursor.execute("INSERT INTO sprints (name,accessID) VALUES (?,?)", (start, end))
-#                 cursor.close()
-#                 users.commit()
-#                 return render_template("sprints.html")
-#         else:
-#             return render_template('createSprints.html')
+@app.route('/createSprints',  methods=['GET', 'POST'])
+def createSprints():
+    if session['user_id'] == None:
+        return render_template('index.html')
+    else:
+        if request.method == 'POST':
+            with sqlite3.connect("FlaskAppDB.db") as sprints:
+                cursor = sprints.cursor()
+                start = request.form['start']
+                end = request.form['end']
+                #TODO: check if start date is before end date
+                cursor.execute("INSERT INTO sprints (sprintStart,sprintEnd) VALUES (?,?)", (start, end))
+            return render_template("home.html")
+        else:
+            return render_template('createSprints.html')
 
 if __name__ == '__main__':
     app.run(debug=False)

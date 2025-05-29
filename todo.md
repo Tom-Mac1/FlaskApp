@@ -1,5 +1,8 @@
 # Priority items
-- Stop database issue creating duplicate records
+- Add tickets
+- Admin homepage (delete options)
+- Delete functionality
+- 
 
 # Add the following pages
 - tickets

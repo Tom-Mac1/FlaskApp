@@ -30,8 +30,8 @@ def createTables():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS sprints (
         sprintID INTEGER PRIMARY KEY AUTOINCREMENT,
-        sprintStart TIMESTAMP NOT NULL,
-        sprintEnd TIMESTAMP NOT NULL
+        sprintStart TEXT NOT NULL, -- DD-MM-YYYY format
+        sprintEnd TEXT NOT NULL -- DD-MM-YYYY format
     )
     """)
 
@@ -59,12 +59,15 @@ def initialValues():
     # enforce foreign key usage as not enabled by default
     cur.execute("PRAGMA foreign_keys = ON;")
     # CREATE ADMIN (ROOT) USER AND PASSWORD
-    cur.execute("INSERT INTO users (name, accessID) VALUES (?, ?)", ("root", 1))
-    cur.execute("INSERT INTO logins (userID, password) VALUES (?, ?)", (1, "rootPW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("root", 1))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (1, "rootPW"))
 
     # CREATE STANDARD USER AND PASSWORD
-    cur.execute("INSERT INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
-    cur.execute("INSERT INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
+
+    # CREATE TEST SPRINT
+    cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ('2000-01-01', '2001-01-01'))
     cur.close()
     con.commit()
     con.close()
