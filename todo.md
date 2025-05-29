@@ -1,8 +1,9 @@
 # Priority items
 - Add tickets
+- get pop up/ flash messages working
 - Admin homepage (delete options)
 - Delete functionality
-- 
+- Input validation (start date before end, sprint must end before new sprint)
 
 # Add the following pages
 - tickets
@@ -13,7 +14,7 @@
 # Update all pages to look nicer
 - create custom css for it
 
-# Functionality
+# Functionality ticket items
 - Pop up message for welcome, or invalid login
 - Pop up message for user created
 - Input validation
