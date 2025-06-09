@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sprints</title>
+        <title>Tickets</title>
     </head>
     <style>
         table, th, td {
@@ -22,18 +22,22 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('createSprints') }}';">Create Sprint</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('createTickets') }}';">Create Ticket</button>
         <table style="width:100%">
             <tr>
+              <th>Ticket Number</th>
               <th>Sprint</th>
-              <th>Start</th>
-              <th>End</th>
+              <th>User ID</th>
+              <th>Descriptino</th>
+              <th>Story Points</th>
             </tr>
-            {%for sprint in data%}
+            {%for ticket in data%}
                 <tr>
-                 <td>{{sprint[0]}}</td>
-                 <td>{{sprint[1]}}</td>
-                 <td>{{sprint[2]}}</td>
+                 <td>{{ticket[0]}}</td>
+                 <td>{{ticket[1]}}</td>
+                 <td>{{ticket[2]}}</td>
+                 <td>{{ticket[3]}}</td>
+                 <td>{{ticket[4]}}</td>
                 </tr>
             {%endfor%}
           </table>  

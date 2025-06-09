@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Sprint</title>
+    </head>
+    <body>
+        <form method="POST">
+            <label>Description:</label>
+            <input type="text" name="Description" placeholder="Description" required><br/>
+            <label>Sprint:</label>
+            <select name="Sprint" required>
+                {% for sprint in sprints %}
+                    <option value="{{ sprint }}">{{ sprint }}</option>
+                {% endfor %}
+            </select><br/>
+            <label>Story Points:</label>
+            <input type="number" name="StoryPoints" placeholder="Story Points" required><br/>
+            <label>Assigned to:</label>
+            <select name="Assigned" required>
+                {% for user in users %}
+                    <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select><br/>
+            <input type = "submit" value = "Enter"/><br/>
+        </form>
+    </body>
+</html>

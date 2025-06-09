@@ -41,7 +41,7 @@ def createTables():
         ticketID INTEGER PRIMARY KEY AUTOINCREMENT,
         sprintID INTEGER,
         userID INTEGER,
-        desc TEXT NOT NULL,
+        descr TEXT NOT NULL,
         storyPoints INTEGER,
         FOREIGN KEY (sprintID) REFERENCES sprints(sprintID),
         FOREIGN KEY (userID) REFERENCES users(userID)

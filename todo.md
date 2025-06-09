@@ -1,15 +1,12 @@
 # Priority items
 - Add tickets
-- get pop up/ flash messages working
-- Admin homepage (delete options)
+- Admin homepage (delete options, admin can create users)
 - Delete functionality
+- Create functionality
 - Input validation (start date before end, sprint must end before new sprint)
 
 # Add the following pages
-- tickets
-- create sprint
 - create tickets
-- create user
 
 # Update all pages to look nicer
 - create custom css for it
@@ -28,12 +25,6 @@
 - Set so only admin user can delete sprints/tickets
 - Create button in sprints page that allows editing a specific sprint
 
-# DB
-- Tickets table
-- Link tickets to sprints
-- Link tickets to users
-- Link users to sprints
-
 # Extra bits
 - Documentation for app design
 - Documentation for DB relationships
@@ -43,7 +34,6 @@
 - Security: cannot add /home or /sprints etc into url, must have active session
 - Security: PW in separate db, add hashing though
 
-# find a way around the fact that db must be deleted every run
 # Add an adminHome page that has option to create admin user, delete items
 # Use flask session to store user ID and name, validate before changing pages
 #   Have a separate functionality on home page for admins

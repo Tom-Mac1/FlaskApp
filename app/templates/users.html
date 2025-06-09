@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Users</title>
+    </head>
+    <style>
+        table, th, td {
+          border:1px solid black;
+        }
+        </style>
+    <body>
+        <table style="width:100%">
+            <tr>
+              <th>User</th>
+              <th>Name</th>
+              <th>Access level</th>
+            </tr>
+            {%for sprint in data%}
+                <tr>
+                 <td>{{sprint[0]}}</td>
+                 <td>{{sprint[1]}}</td>
+                 <td>{{sprint[2]}}</td>
+                </tr>
+            {%endfor%}
+          </table>  
+          <button class="btn" type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>        
+    </body>
+</html>
