@@ -66,19 +66,17 @@ def join():
         with sqlite3.connect("FlaskAppDB.db") as users:
             cursor = users.cursor()
             name = request.form['name']
-            # new #
+
             existing_user = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             if existing_user is not None:
                 flash("Username already exists. Please choose a different username.", "error")
-                return redirect(url_for('join'))
-            #     #
+                return redirect(url_for('index'))
+
             password = request.form['password']
-            # new #
-            # if <8 char, no num, no capital ltr or special char, return error
             if len(password) < 8 or not any(char.isdigit() for char in password) or not any(char.isupper() for char in password) or not any(char in "!@#$%^&*()-_=+[]{}|;:,.<>?/" for char in password):
                 flash("Password must be at least 8 characters long and contain at least 1 number, special character and capital letter.", "error")
-                return redirect(url_for('join'))
-            #     #
+                return redirect(url_for('index'))
+
             cursor.execute("INSERT INTO users \
             (name,accessID) VALUES (?,?)",
                             (name, 2))
@@ -140,11 +138,9 @@ def createSprints():
                 cursor = sprints.cursor()
                 start = request.form['start']
                 end = request.form['end']
-                # new #
                 if start >= end:
                     flash("Start date must be before end date.", "error")
-                    return redirect(url_for('createSprints'))
-                #     #
+                    return redirect(url_for('sprints'))
                 cursor.execute("INSERT INTO sprints (sprintStart,sprintEnd) VALUES (?,?)", (start, end))
             flash("New sprint created successfully!", "success")
             return redirect(url_for('sprints'))
@@ -163,14 +159,14 @@ def createTickets():
                 assigned = request.form['Assigned']
                 idList = cursor.execute("SELECT userID FROM users WHERE name=?", (assigned,)).fetchone()
                 id = idList[0]
-                cursor.execute("INSERT INTO tickets (descr,userID) VALUES (?,?)", (description, id))
+                points = int(request.form['StoryPoints'])
+                sprint = int(request.form['Sprint'])
+                cursor.execute("INSERT INTO tickets (descr,userID,storyPoints,sprintID) VALUES (?,?,?,?)", (description, id, points, sprint))
             flash("New ticket created successfully!", "success")
             return redirect(url_for('tickets'))
         else:
             users = get_users()
-            # new #
             sprints = get_sprints()
-            #     #
             return render_template('createTickets.html', users=users, sprints=sprints)
 
 def get_users():

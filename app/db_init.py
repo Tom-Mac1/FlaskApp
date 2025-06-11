@@ -67,7 +67,7 @@ def initialValues():
     cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
 
     # CREATE TEST SPRINT
-    cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ('2000-01-01', '2001-01-01'))
+    #cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ('2000-01-01', '2001-01-01'))
     cur.close()
     con.commit()
     con.close()
