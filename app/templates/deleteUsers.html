@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User</title>
+</head>
+<body>
+    <form method="POST">
+        <label>User:</label>
+        <select name="User" required>
+            {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select><br/>
+        <input type="submit" value="Delete User"/><br/>
+        <button type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>
+    </form>
+</body>
+</html>

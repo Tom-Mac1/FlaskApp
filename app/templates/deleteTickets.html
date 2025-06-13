@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Ticket</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Ticket:</label>
+        <select name="Ticket" required>
+            {% for ticket in tickets %}
+                <option value="{{ ticket }}">{{ ticket }}</option>
+            {% endfor %}
+        </select><br/>
+        <input type="submit" value="Delete Ticket"/><br/>
+        <button type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>
+    </form>
+</body>
+</html>

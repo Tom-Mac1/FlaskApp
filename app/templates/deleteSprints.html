@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Sprint</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Sprint:</label>
+        <select name="Sprint" required>
+            {% for sprint in sprints %}
+                <option value="{{ sprint }}">{{ sprint }}</option>
+            {% endfor %}
+        </select><br/>
+        <input type="submit" value="Delete Sprint"/><br/>
+        <button type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>
+    </form>
+</body>
+</html>

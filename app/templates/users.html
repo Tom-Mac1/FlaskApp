@@ -9,6 +9,23 @@
         }
         </style>
     <body>
+        <!-- Flashed messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% if access == 1 %}
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('deleteUsers') }}';">Delete Users</button>
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('createUsers') }}';">Create Users</button>
+        {% endif %}
         <table style="width:100%">
             <tr>
               <th>User</th>

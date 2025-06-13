@@ -1,14 +1,34 @@
 # Scrum board
 
-This app is an example of a simple scrum board for an agile team
+This application provides a single interface to manage projects
 
-Through here, users can create and modify tickets/sprints
-You can view and assign tickets on the "tickets" page
-Users can also see which tickets are associated with them
-Sprints are able to be viewed and updated
-
-Tables
+# Tables
 - Users: user ID, name and access level
 - Logins (separate to users for security): user ID, password 
 - Sprints: sprint ID, start date, end date
 - Tickets: Ticket ID, sprint ID, userID
+
+# How to use
+Initialise a virtual environment:
+```bash
+cd /app
+python3 -m venv venv 
+venv/Scripts/activate
+```
+Run application: Database will auto populate initial values
+
+```bash
+flask run
+```
+
+# Functionality
+As an admin you can:
+- View all users, tickets and sprints
+- Create tickets, sprints and other admin users
+- Delete tickets, sprints, and users
+
+As a user you can:
+- View all users, tickets and sprints
+- Create tickets and sprints
+
+You can also sign up as a regular user and gain standard functionality

@@ -22,7 +22,10 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('createSprints') }}';">Create Sprint</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('createSprints') }}';">Create Sprints</button>
+        {% if access == 1 %}
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('deleteSprints') }}';">Delete Sprints</button>
+        {% endif %}
         <table style="width:100%">
             <tr>
               <th>Sprint</th>
