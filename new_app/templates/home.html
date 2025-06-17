@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Log in or sign up </title>
+        <title>Home Page </title>
     </head>
     <body>
         <!-- Flashed messages -->
@@ -17,8 +17,11 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <h1>Continue here</h1>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('login') }}';">Log in</button><br/>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('join') }}';">join</button><br/>
+        <h1>Welcome</h1>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.logout') }}';">Sign out</button><br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.sprints') }}';">Check sprint list</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.users') }}';">View users</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.tickets') }}';">View tickets</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.resetPass') }}';">Reset password</button>
     </body>
 </html>

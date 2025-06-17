@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sprints</title>
+        <title>Users</title>
     </head>
     <style>
         table, th, td {
@@ -22,15 +22,15 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('createSprints') }}';">Create Sprints</button>
         {% if access == 1 %}
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('deleteSprints') }}';">Delete Sprints</button>
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.deleteUsers') }}';">Delete Users</button>
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.createUsers') }}';">Create Users</button>
         {% endif %}
         <table style="width:100%">
             <tr>
-              <th>Sprint</th>
-              <th>Start</th>
-              <th>End</th>
+              <th>User</th>
+              <th>Name</th>
+              <th>Access level</th>
             </tr>
             {%for sprint in data%}
                 <tr>
@@ -40,6 +40,6 @@
                 </tr>
             {%endfor%}
           </table>  
-          <button class="btn" type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>        
+          <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>        
     </body>
 </html>

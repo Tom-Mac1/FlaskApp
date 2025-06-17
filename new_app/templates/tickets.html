@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Users</title>
+        <title>Tickets</title>
     </head>
     <style>
         table, th, td {
@@ -22,24 +22,28 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('ticket.createTickets') }}';">Create Tickets</button>
         {% if access == 1 %}
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('deleteUsers') }}';">Delete Users</button>
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('createUsers') }}';">Create Users</button>
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('ticket.deleteTickets') }}';">Delete Tickets</button>
         {% endif %}
         <table style="width:100%">
             <tr>
-              <th>User</th>
-              <th>Name</th>
-              <th>Access level</th>
+              <th>Ticket Number</th>
+              <th>Sprint</th>
+              <th>User ID</th>
+              <th>Description</th>
+              <th>Story Points</th>
             </tr>
-            {%for sprint in data%}
+            {%for ticket in data%}
                 <tr>
-                 <td>{{sprint[0]}}</td>
-                 <td>{{sprint[1]}}</td>
-                 <td>{{sprint[2]}}</td>
+                 <td>{{ticket[0]}}</td>
+                 <td>{{ticket[1]}}</td>
+                 <td>{{ticket[2]}}</td>
+                 <td>{{ticket[3]}}</td>
+                 <td>{{ticket[4]}}</td>
                 </tr>
             {%endfor%}
           </table>  
-          <button class="btn" type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>        
+          <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>        
     </body>
 </html>
