@@ -14,6 +14,7 @@ Initialise a virtual environment:
 cd /app
 python3 -m venv venv 
 venv/Scripts/activate
+pip install -r requirements.txt
 ```
 Run application: Database will auto populate initial values
 

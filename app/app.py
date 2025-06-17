@@ -249,7 +249,7 @@ def createUsers():
             return redirect(url_for('users'))
         else:
             return render_template('createUsers.html')
-# TEST
+
 @app.route('/resetPass', methods=['GET', 'POST'])
 def resetPass():
     if session['user_id'] == None:
@@ -264,16 +264,16 @@ def resetPass():
                 existingPass = cursor.execute("SELECT password FROM logins WHERE userID=?", (userID,)).fetchone()
                 if password != existingPass[0]:
                     flash("Incorrect password entered.", "error")
-                    return redirect(url_for('resetPassword'))
+                    return redirect(url_for('resetPass'))
                 elif len(newPass) < 8 or not any(char.isdigit() for char in newPass) or not any(char.isupper() for char in newPass) or not any(char in "!@#$%^&*()-_=+[]{}|;:,.<>?/" for char in newPass):
                     flash("Password must be at least 8 characters long and contain at least 1 number, special character and capital letter.", "error")
-                    return redirect(url_for('index'))
+                    return redirect(url_for('home'))
                 else:
-                    cursor.execute("UPDATE logins SET password=? WHERE userID=?", (password, userID))
+                    cursor.execute("UPDATE logins SET password=? WHERE userID=?", (newPass, userID))
             flash("Password reset successfully!", "success")
             return redirect(url_for('home'))
         else:
-            return render_template('resetPassword.html')
+            return render_template('resetPass.html')
 ##############################################################
 
 # Getter functions ###########################################

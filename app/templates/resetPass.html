@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create User</title>
+    </head>
+    <body>
+        <form method="POST">
+            <label>Existing Password:</label>
+            <input type="password" name="password" placeholder="Enter name" required><br/>
+            <label>Enter New Password:</label>
+            <input type="password" name="newPass" placeholder="Enter temp password" required><br/>
+            <input type = "submit" value = "Confirm"/><br/>
+        </form>
+        <button type="button" onclick="window.location.href='{{ url_for('home') }}';">Home</button><br/>
+    </body>
+</html>
