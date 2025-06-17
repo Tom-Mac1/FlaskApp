@@ -33,3 +33,7 @@ As a user you can:
 - Create tickets and sprints
 
 You can also sign up as a regular user and gain standard functionality
+
+# Approach taken
+- This uses a modular approach, with folders containing functionality for each aspect, such as users, auth, pages, etc
+- Through this approach, app.py can be less clustered and adding/working on features can be done more efficiently

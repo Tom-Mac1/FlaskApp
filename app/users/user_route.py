@@ -67,6 +67,7 @@ def resetPass():
                     flash("Password must be at least 8 characters long and contain at least 1 number, special character and capital letter.", "error")
                     return redirect(url_for('page.home'))
                 else:
+                    # TODO hash the password before storing it
                     cursor.execute("UPDATE logins SET password=? WHERE userID=?", (newPass, userID))
             flash("Password reset successfully!", "success")
             return redirect(url_for('page.home'))

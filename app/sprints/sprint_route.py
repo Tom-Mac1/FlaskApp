@@ -30,9 +30,10 @@ def createSprints():
                 cursor = sprints.cursor()
                 start = request.form['start']
                 end = request.form['end']
+                # TODO print today, compare today to start, if start < end:, cannot create sprint in the past
                 if start >= end:
                     flash("Start date must be before end date.", "error")
-                    return redirect(url_for('sprints'))
+                    return redirect(url_for('page.sprints'))
                 cursor.execute("INSERT INTO sprints (sprintStart,sprintEnd) VALUES (?,?)", (start, end))
             flash("New sprint created successfully!", "success")
             return redirect(url_for('page.sprints'))

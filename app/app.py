@@ -1,9 +1,9 @@
 from flask import Flask
-from auth_route import auth_bp
-from sprint_route import sprint_bp
-from ticket_route import ticket_bp
-from user_route import user_bp
-from page_route import page_bp
+from auth.auth_route import auth_bp
+from sprints.sprint_route import sprint_bp
+from tickets.ticket_route import ticket_bp
+from users.user_route import user_bp
+from pages.page_route import page_bp
 from db_init import createTables, initialValues
 import secrets
 

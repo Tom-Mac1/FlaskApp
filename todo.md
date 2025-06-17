@@ -1,9 +1,7 @@
 # Priority items
-Tuesday
+Wednesday/Thursday
 - create sprints cannot be for past
 - Create tickets should only show sprints after today
-
-Wednesday/Thursday
 - Confirmation for delete and exit buttons
 
 # Extension items
@@ -14,13 +12,12 @@ Friday
 
 Saturday
 - Add ticket descr to dropdown menu
-
-Sunday
 - try make the cross functional in flash messages
+- password hashing
 
 Monday-Thursday
 - custom css
-- tidy up codebase
+- add cookies/extra auth
 
 
 # CSS STYLING

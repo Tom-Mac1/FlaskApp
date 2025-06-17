@@ -18,6 +18,7 @@ def deleteTickets():
             return redirect(url_for('page.tickets'))
         else:
             return render_template('deleteTickets.html', tickets=get_tickets())
+            # TODO Add ticket description to dropdown menu
 
 @ticket_bp.route('/createTickets',  methods=['GET', 'POST'])
 def createTickets():
@@ -33,6 +34,7 @@ def createTickets():
                 id = idList[0]
                 points = int(request.form['StoryPoints'])
                 sprint = int(request.form['Sprint'])
+                # TODO only show sprints after today
                 cursor.execute("INSERT INTO tickets (descr,userID,storyPoints,sprintID) VALUES (?,?,?,?)", (description, id, points, sprint))
             flash("New ticket created successfully!", "success")
             return redirect(url_for('page.tickets'))
@@ -41,3 +43,8 @@ def createTickets():
             users = get_users()
             sprints = get_sprints()
             return render_template('createTickets.html', users=users, sprints=sprints)
+# TODO      
+# EDIT TICKET
+# SELECT TICKET ID
+# BRINGS UP DESC, SPRINT, USER
+# CAN REASSIGN
