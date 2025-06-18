@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
-from utils import get_access, get_users
+from app.utils.utils import get_access, get_users
 
 user_bp = Blueprint('user', __name__)
 

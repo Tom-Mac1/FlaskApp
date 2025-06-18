@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
-from utils import get_users, get_tickets, get_future_sprints
+from app.utils.utils import get_users, get_tickets, get_future_sprints
 
 ticket_bp = Blueprint('ticket', __name__)
 
