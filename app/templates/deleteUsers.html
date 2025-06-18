@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User</title>
+    <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+</head>
+<body>
+    <form method="POST" onsubmit="confirmSubmission(event, 'delete', 'user')">
+        <label>User:</label>
+        <select name="User" required>
+            {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select><br/>
+        <input type="submit" value="Delete User"/><br/>
+        <button type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+    </form>
+</body>
+</html>
