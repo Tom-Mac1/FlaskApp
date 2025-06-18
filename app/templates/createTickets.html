@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Create Ticket</title>
+        <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" onsubmit="confirmSubmission(event, 'create', 'ticket')">
             <label>Description:</label>
             <input type="text" name="Description" placeholder="Description" required><br/>
             <label>Sprint:</label>

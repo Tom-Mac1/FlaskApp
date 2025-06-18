@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>Delete User</title>
+    <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" onsubmit="confirmSubmission(event, 'delete', 'user')">
         <label>User:</label>
         <select name="User" required>
             {% for user in users %}

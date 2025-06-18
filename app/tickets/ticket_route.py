@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
-from utils import get_access, get_users, get_sprints, get_tickets
+from utils import get_users, get_tickets, get_future_sprints
 
 ticket_bp = Blueprint('ticket', __name__)
 
@@ -34,14 +34,12 @@ def createTickets():
                 id = idList[0]
                 points = int(request.form['StoryPoints'])
                 sprint = int(request.form['Sprint'])
-                # TODO only show sprints after today
                 cursor.execute("INSERT INTO tickets (descr,userID,storyPoints,sprintID) VALUES (?,?,?,?)", (description, id, points, sprint))
             flash("New ticket created successfully!", "success")
             return redirect(url_for('page.tickets'))
         else:
-            #users and sprints for dropdown menus
             users = get_users()
-            sprints = get_sprints()
+            sprints = get_future_sprints()
             return render_template('createTickets.html', users=users, sprints=sprints)
 # TODO      
 # EDIT TICKET

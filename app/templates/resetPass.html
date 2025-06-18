@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Create User</title>
+        <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" onsubmit="confirmSubmission(event, 'reset', 'password')">
             <label>Existing Password:</label>
             <input type="password" name="password" placeholder="Enter password" required><br/>
             <label>Enter New Password:</label>

@@ -1,22 +1,18 @@
 # Priority items
-Wednesday/Thursday
-- create sprints cannot be for past
-- Create tickets should only show sprints after today
-- Confirmation for delete and exit buttons
 
-# Extension items
-Friday
+Thurs/Friday
+- Cannot create overlapping sprints
 - Show tickets by sprint and/or user
 - Show users in a sprint
 - Edit ticket
 
 Saturday
 - Add ticket descr to dropdown menu
-- try make the cross functional in flash messages
 - password hashing
 
 Monday-Thursday
 - custom css
+- either remove button from flash msg, or make it a proper pop up
 - add cookies/extra auth
 
 

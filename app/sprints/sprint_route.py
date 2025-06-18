@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
 from utils import get_access, get_users, get_sprints, get_tickets
+import datetime as dt
 
 sprint_bp = Blueprint('sprint', __name__)
 
@@ -30,7 +31,11 @@ def createSprints():
                 cursor = sprints.cursor()
                 start = request.form['start']
                 end = request.form['end']
-                # TODO print today, compare today to start, if start < end:, cannot create sprint in the past
+                start_date = dt.datetime.strptime(start, "%Y-%m-%d")
+                today = dt.datetime.today().date()
+                if start_date.date() < today:
+                    flash("Start date cannot start in the past.", "error")
+                    return redirect(url_for('page.sprints'))
                 if start >= end:
                     flash("Start date must be before end date.", "error")
                     return redirect(url_for('page.sprints'))

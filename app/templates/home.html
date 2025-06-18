@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Home Page </title>
+        <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
         <!-- Flashed messages -->
@@ -18,7 +19,7 @@
             {% endif %}
         {% endwith %}
         <h1>Welcome</h1>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.logout') }}';">Sign out</button><br/>
+        <button class="btn" type="button" onclick="confirmRedirect(event, 'sign out', '{{ url_for('auth.logout') }}')">Sign out</button><br/>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.sprints') }}';">Check sprint list</button>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.users') }}';">View users</button>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.tickets') }}';">View tickets</button>

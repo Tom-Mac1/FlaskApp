@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>Delete Sprint</title>
+    <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" onsubmit="confirmSubmission(event, 'delete', 'sprint')">
         <label>Sprint:</label>
         <select name="Sprint" required>
             {% for sprint in sprints %}

@@ -33,3 +33,11 @@ def get_tickets():
     tickets = cur.fetchall()
     conn.close()
     return [ticket[0] for ticket in tickets]
+
+def get_future_sprints():
+    conn = sqlite3.connect('FlaskAppDB.db')
+    cur = conn.cursor()
+    cur.execute("SELECT sprintID FROM sprints WHERE sprintStart > date('now')")
+    sprints = cur.fetchall()
+    conn.close()
+    return [sprint[0] for sprint in sprints]

@@ -66,6 +66,18 @@ def initialValues():
     cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
     cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
 
+    # CREATE SPRINTS
+    if cur.execute("SELECT COUNT(*) FROM sprints").fetchone()[0] == 0:
+        # Only insert if no sprints exist to avoid duplicates
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("01-01-2024", "15-01-2024"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("16-01-2024", "31-01-2024"))
+
+    # CREATE TICKETS
+    if cur.execute("SELECT COUNT(*) FROM tickets").fetchone()[0] == 0:
+        # Only insert if no tickets exist to avoid duplicates
+        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (1, 1, "Ticket 1 Description", 5))
+        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (2, 2, "Ticket 2 Description", 3))
+
     cur.close()
     con.commit()
     con.close()

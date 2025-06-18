@@ -2,16 +2,17 @@
 <html>
     <head>
         <title>Create User</title>
+        <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" onsubmit="confirmSubmission(event, 'create', 'user')">
             <label>Enter Name:</label>
             <input type="name" name="name" placeholder="Enter name" required><br/>
             <label>Enter Temp Password:</label>
             <input type="password" name="password" placeholder="Enter temp password" required><br/>
             <label>Admin?</label>
             <input type="checkbox" name="admin"><br/>
-            <input type = "submit" value = "Sign up"/><br/>
+            <input type = "submit" value = "Create user"/><br/>
         </form>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
     </body>

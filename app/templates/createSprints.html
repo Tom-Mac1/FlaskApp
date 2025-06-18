@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Create Sprint</title>
+        <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
-        <form method="POST">
+        <form method="POST" onsubmit="confirmSubmission(event, 'create', 'sprint')">
             <label>Sprint Start:</label>
             <input type="date" name="start" placeholder="Sprint Start" required><br/>
             <label>Sprint End:</label>
