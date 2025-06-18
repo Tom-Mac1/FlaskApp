@@ -6,7 +6,7 @@ This application provides a single interface to manage projects
 - Users: user ID, name and access level
 - Logins (separate to users for security): user ID, password 
 - Sprints: sprint ID, start date, end date
-- Tickets: Ticket ID, sprint ID, userID
+- Tickets: Ticket ID, sprint ID, userID, Description, Story Points
 
 # How to use
 Initialise a virtual environment:
