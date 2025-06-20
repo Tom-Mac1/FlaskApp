@@ -75,8 +75,9 @@ def initialValues():
     # CREATE TICKETS
     if cur.execute("SELECT COUNT(*) FROM tickets").fetchone()[0] == 0:
         # Only insert if no tickets exist to avoid duplicates
-        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (1, 1, "Ticket 1 Description", 5))
-        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (2, 2, "Ticket 2 Description", 3))
+        sprintID = cur.execute("SELECT sprintID FROM sprints").fetchone()[0]
+        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 1 Description", 5))
+        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 2 Description", 3))
 
     cur.close()
     con.commit()

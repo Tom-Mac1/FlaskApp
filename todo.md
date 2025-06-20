@@ -2,7 +2,6 @@
 
 Saturday
 - Show tickets by sprint and/or user
-- Ticket initialisation bugs out if sprint 1/2 dont exist - do select sprintID
 - password hashing
 
 Monday-Thursday
