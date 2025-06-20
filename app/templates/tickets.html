@@ -22,10 +22,8 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('ticket.createTickets') }}';">Create Tickets</button>
-        {% if access == 1 %}
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('ticket.deleteTickets') }}';">Delete Tickets</button>
-        {% endif %}
         <table style="width:100%">
             <tr>
               <th>Ticket Number</th>
@@ -41,9 +39,14 @@
                  <td>{{ticket[2]}}</td>
                  <td>{{ticket[3]}}</td>
                  <td>{{ticket[4]}}</td>
+                 <td>
+                    <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit </button>
+                    {% if access == 1 %}
+                    <a class="btn" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
+                    {% endif %}
+                </td>
                 </tr>
             {%endfor%}
-          </table>  
-          <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>        
+          </table>      
     </body>
 </html>

@@ -6,21 +6,22 @@
     </head>
     <body>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
-        <form method="POST" onsubmit="confirmSubmission(event, 'create', 'ticket')">
+        <form method="POST" onsubmit="confirmSubmission(event, 'edit', 'ticket')">
+            <label>Ticket ID: {{ ticket.ticketID }}</label><br/>
             <label>Description:</label>
-            <input type="text" name="Description" placeholder="Description" required><br/>
+            <input type="text" name="Description" value="{{ ticket.descr }}" required><br/>
             <label>Sprint:</label>
             <select name="Sprint" required>
                 {% for sprint in sprints %}
-                    <option value="{{ sprint }}">{{ sprint }}</option>
+                    <option value="{{ sprint }}" {% if sprint == ticket.sprintID %}selected{% endif %}>{{ sprint }}</option>
                 {% endfor %}
             </select><br/>
             <label>Story Points:</label>
-            <input type="number" name="StoryPoints" placeholder="Story Points" required><br/>
+            <input type="number" name="StoryPoints" value="{{ ticket.storyPoints }}" required><br/>
             <label>Assigned to:</label>
             <select name="Assigned" required>
                 {% for user in users %}
-                    <option value="{{ user }}">{{ user }}</option>
+                    <option value="{{ user }}" {% if user == ticket.user %}selected{% endif %}>{{ user }}</option>
                 {% endfor %}
             </select><br/>
             <input type = "submit" value = "Enter"/><br/>

@@ -5,6 +5,7 @@
         <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
     </head>
     <body>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'create', 'user')">
             <label>Enter Name:</label>
             <input type="name" name="name" placeholder="Enter name" required><br/>
@@ -14,6 +15,5 @@
             <input type="checkbox" name="admin"><br/>
             <input type = "submit" value = "Create user"/><br/>
         </form>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
     </body>
 </html>

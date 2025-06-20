@@ -4,25 +4,23 @@ from app.utils.utils import get_access, get_users
 
 user_bp = Blueprint('user', __name__)
 
-@user_bp.route('/deleteUsers',  methods=['GET', 'POST'])
-def deleteUsers():
+@user_bp.route('/deleteUsers<int:user_id>',  methods=['GET', 'POST'])
+def deleteUsers(user_id):
     if session.get('user_id') == None:
         return render_template('index.html')
     else:
-        if request.method == 'POST':
-            with sqlite3.connect("FlaskAppDB.db") as sprints:
-                cursor = sprints.cursor()
-                username = request.form['User']
-                userID = cursor.execute("SELECT userID FROM users WHERE name=?", (username,)).fetchone()[0]
-                if session.get('user_id') == userID:
-                    flash("You cannot delete your own account.", "error")
-                    return redirect(url_for('page.users'))
-                else:
-                    cursor.execute("DELETE FROM users WHERE userID=?", (userID,))
-            flash("Ticket deleted successfully!", "success")
-            return redirect(url_for('page.users'))
-        else:
-            return render_template('deleteUsers.html', users=get_users())
+        with sqlite3.connect("FlaskAppDB.db") as sprints:
+            cursor = sprints.cursor()
+            if session.get('user_id') == user_id:
+                flash("You cannot delete your own account.", "error")
+                return redirect(url_for('page.users'))
+            else:
+                cursor.execute("DELETE FROM users WHERE userID=?", (user_id,))
+                cursor.execute("DELETE FROM logins WHERE userID=?", (user_id,))
+                # update tickets with userID==user_id to 0
+                cursor.execute("UPDATE tickets SET userID=0 WHERE userID=?", (user_id,))
+        flash("User deleted successfully!", "success")
+        return redirect(url_for('page.users'))
                
 @user_bp.route('/createUsers',  methods=['GET', 'POST'])
 def createUsers():

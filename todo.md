@@ -1,13 +1,8 @@
 # Priority items
 
-Thurs/Friday
-- Cannot create overlapping sprints
-- Show tickets by sprint and/or user
-- Show users in a sprint
-- Edit ticket
-
 Saturday
-- Add ticket descr to dropdown menu
+- Show tickets by sprint and/or user
+- Ticket initialisation bugs out if sprint 1/2 dont exist - do select sprintID
 - password hashing
 
 Monday-Thursday

@@ -69,8 +69,8 @@ def initialValues():
     # CREATE SPRINTS
     if cur.execute("SELECT COUNT(*) FROM sprints").fetchone()[0] == 0:
         # Only insert if no sprints exist to avoid duplicates
-        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("01-01-2024", "15-01-2024"))
-        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("16-01-2024", "31-01-2024"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-01-01", "2024-01-15"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-01-16", "2024-01-30"))
 
     # CREATE TICKETS
     if cur.execute("SELECT COUNT(*) FROM tickets").fetchone()[0] == 0:
