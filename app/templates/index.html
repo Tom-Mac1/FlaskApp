@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Log in or sign up </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         <!-- Flashed messages -->
@@ -10,15 +11,13 @@
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                         {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
         <h1>Continue here</h1>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.login') }}';">Log in</button><br/>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.join') }}';">join</button><br/>
+        <br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.login') }}';">Log in</button>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('auth.join') }}';">join</button>
     </body>
 </html>

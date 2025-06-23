@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Sprints</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <style>
         table, th, td {
@@ -15,15 +16,14 @@
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                         {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>   
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('sprint.createSprints') }}';">Create Sprints</button>
+        <div class="top-left-buttons">
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>   
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('sprint.createSprints') }}';">Create Sprints</button>
+        </div>
         <table style="width:100%">
             <tr>
               <th>Sprint</th>
@@ -37,8 +37,7 @@
                  <td>{{sprint[2]}}</td>
                  {% if access == 1 %}
                  <td>
-                    <a class="btn" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint?');">Delete</a>
-                    
+                    <a class="btn btn-red" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint?');">Delete</a>
                 </td>
                 {% endif %}
                 </tr>

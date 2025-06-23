@@ -62,22 +62,57 @@ def initialValues():
     cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("root", 1))
     cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (1, "rootPW"))
 
-    # CREATE STANDARD USER AND PASSWORD
+
+    # CREATE 9 STANDARD USERS AND PASSWORDS
     cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
     cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (2, "User1PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User2", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (3, "User2PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User3", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (4, "User3PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User4", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (5, "User4PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User5", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (6, "User5PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User6", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (7, "User6PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User7", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (8, "User7PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User8", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (9, "User8PW"))
+    cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User9", 2))
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (10, "User9PW"))
 
     # CREATE SPRINTS
     if cur.execute("SELECT COUNT(*) FROM sprints").fetchone()[0] == 0:
         # Only insert if no sprints exist to avoid duplicates
+        # 10 default sprints, 2 for each month of the year
         cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-01-01", "2024-01-15"))
         cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-01-16", "2024-01-30"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-02-01", "2024-02-15"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-02-16", "2024-02-29"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-03-01", "2024-03-15"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-03-16", "2024-03-31"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-04-01", "2024-04-15"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-04-16", "2024-04-30"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-05-01", "2024-05-15"))
+        cur.execute("INSERT OR IGNORE INTO sprints (sprintStart, sprintEnd) VALUES (?, ?)", ("2024-05-16", "2024-05-31"))
 
     # CREATE TICKETS
     if cur.execute("SELECT COUNT(*) FROM tickets").fetchone()[0] == 0:
         # Only insert if no tickets exist to avoid duplicates
-        sprintID = cur.execute("SELECT sprintID FROM sprints").fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 1 Description", 5))
-        cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 2 Description", 3))
+        sprintID = cur.execute("SELECT sprintID FROM sprints").fetchall()
+        if (1 in sprintID) and (2 in sprintID):
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 1 Description", 5))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 2 Description", 3))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 3 Description", 8))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 4 Description", 2))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 5 Description", 13))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 6 Description", 1))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 7 Description", 21))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 8 Description", 3))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 1, "Ticket 9 Description", 5))
+            cur.execute("INSERT OR IGNORE INTO tickets (sprintID, userID, descr, storyPoints) VALUES (?, ?, ?, ?)", (sprintID, 2, "Ticket 10 Description", 8))
 
     cur.close()
     con.commit()

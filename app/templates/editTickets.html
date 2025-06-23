@@ -3,6 +3,7 @@
     <head>
         <title>Create Ticket</title>
         <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
         <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
@@ -24,7 +25,7 @@
                     <option value="{{ user }}" {% if user == ticket.user %}selected{% endif %}>{{ user }}</option>
                 {% endfor %}
             </select><br/>
-            <input type = "submit" value = "Enter"/><br/>
+            <input type = "submit" class="btn" value = "Enter"/><br/>
         </form>
     </body>
 </html>

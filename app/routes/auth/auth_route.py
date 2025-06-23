@@ -24,7 +24,7 @@ def login():
             id = idList[0]
         pw = cur1.execute("SELECT password FROM logins WHERE userID="+str(id)).fetchone()
         if pw == None:
-            flash("Invalid username/password", "info")
+            flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
         else:
             pw = pw[0]
@@ -34,7 +34,7 @@ def login():
             session['username'] = name
             return render_template("home.html")
         else:
-            flash("Invalid username/password", "info")
+            flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
     else:
         return render_template('login.html')
