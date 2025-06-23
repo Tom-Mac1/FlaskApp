@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-        <button type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+        <button class="btn"  type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'reset', 'password')">
             <label>Existing Password:</label>
             <input type="password" name="password" placeholder="Enter password" required><br/>
