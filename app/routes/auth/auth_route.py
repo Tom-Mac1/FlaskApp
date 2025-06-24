@@ -7,7 +7,7 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/logout')
 def logout():
     session.clear()
-    flash("Successfully logged out.", "info")
+    flash("Successfully logged out.", "success")
     return redirect(url_for('page.index'))
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
