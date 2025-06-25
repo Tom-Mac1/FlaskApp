@@ -37,7 +37,7 @@
                  <td>{{sprint[2]}}</td>
                  {% if access == 1 %}
                  <td>
-                    <a class="btn btn-red" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint?');">Delete</a>
+                    <a class="btn btn-red" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint and associated tickets?');">Delete</a>
                 </td>
                 {% endif %}
                 </tr>

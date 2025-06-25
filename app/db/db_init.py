@@ -97,7 +97,6 @@ def initialValues():
         print("Users already exist, skipping user creation.")
 
     # CREATE SPRINTS
-    print(cur.execute("SELECT COUNT(*) FROM sprints").fetchone())
     if cur.execute("SELECT COUNT(*) FROM sprints").fetchone()[0] == 0:
         # Only insert if no sprints exist to avoid duplicates
         # 10 default sprints, 2 for each month of the year

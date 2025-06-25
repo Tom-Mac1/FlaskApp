@@ -5,14 +5,18 @@ import datetime as dt
 
 sprint_bp = Blueprint('sprint', __name__)
 
+# Delete sprints with an ID being passed in from the call
 @sprint_bp.route('/deleteSprints<int:sprint_id>', methods=['GET', 'POST'])
 def deleteSprints(sprint_id):
+    # If user is not logged in, redirect to index page
     if session.get('user_id') is None:
         return render_template('index.html')
     else:
+        # Delete sprint selected
         with sqlite3.connect("FlaskAppDB.db") as sprints:
             cursor = sprints.cursor()
             cursor.execute("DELETE FROM sprints WHERE sprintID = ?", (sprint_id,))
+            # Delete tickets associated with sprint
             cursor.execute("DELETE FROM tickets WHERE sprintID = ?", (sprint_id,))
         flash("Sprint deleted successfully!", "success")
         return redirect(url_for('page.sprints'))

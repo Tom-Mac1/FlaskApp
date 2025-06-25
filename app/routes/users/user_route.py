@@ -17,7 +17,7 @@ def deleteUsers(user_id):
             else:
                 cursor.execute("DELETE FROM users WHERE userID=?", (user_id,))
                 cursor.execute("DELETE FROM logins WHERE userID=?", (user_id,))
-                # update tickets with userID==user_id to 0
+                # update tickets assigned to user as empty (ID=0)
                 cursor.execute("UPDATE tickets SET userID=0 WHERE userID=?", (user_id,))
         flash("User deleted successfully!", "success")
         return redirect(url_for('page.users'))
@@ -38,7 +38,7 @@ def createUsers():
                 password = request.form['password']
                 if cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone() is not None:
                     flash("Username already exists. Please choose a different username.", "error")
-                    return redirect(url_for('users'))
+                    return redirect(url_for('page.users'))
                 cursor.execute("INSERT INTO users (name,accessID) VALUES (?,?)", (name, admin))
                 cursor.execute("INSERT INTO logins (userID,password) VALUES (?,?)", (cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0], password))
             flash("New User created successfully!", "success")
