@@ -20,7 +20,7 @@ This application provides a single interface to manage projects
 
 # How to use
 #### Clone repository
-1. Go to "Code" and select clone with https, or the clone in vscode option
+1. Go to "Code" and select clone with https
 2. Open VSCode and press "clone git repository", where you will be prompted to paste the link
 
 #### Initialise a virtual environment:
