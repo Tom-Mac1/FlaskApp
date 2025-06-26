@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Users</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <style>
         table, th, td {
@@ -15,31 +16,34 @@
                 {% for category, message in messages %}
                     <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                         {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        {% if access == 1 %}
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.deleteUsers') }}';">Delete Users</button>
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.createUsers') }}';">Create Users</button>
-        {% endif %}
+        <div class="top-left-buttons">
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/> 
+            {% if access == 1 %}
+                <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.createUsers') }}';">Create Users</button>
+            {% endif %}
+        </div>
         <table style="width:100%">
             <tr>
               <th>User</th>
               <th>Name</th>
               <th>Access level</th>
             </tr>
-            {%for sprint in data%}
+            {%for user in data%}
                 <tr>
-                 <td>{{sprint[0]}}</td>
-                 <td>{{sprint[1]}}</td>
-                 <td>{{sprint[2]}}</td>
+                 <td>{{user[0]}}</td>
+                 <td>{{user[1]}}</td>
+                 <td>{{user[2]}}</td>
+                 {% if access == 1 %}
+                 <td>
+                    <a class="btn btn-red" href="{{ url_for('user.deleteUsers', user_id=user[0]) }}" onclick="return confirm('Delete User?');">Delete</a>
+                 </td>
+                 {% endif %}
                 </tr>
             {%endfor%}
-          </table>  
-          <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>        
+          </table>         
     </body>
 </html>

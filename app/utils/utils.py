@@ -1,5 +1,6 @@
 import sqlite3
 from flask import session
+import datetime as dt
 
 def get_access():
     conn = sqlite3.connect('FlaskAppDB.db')
@@ -41,3 +42,36 @@ def get_future_sprints():
     sprints = cur.fetchall()
     conn.close()
     return [sprint[0] for sprint in sprints]
+
+def get_sprint_dates():
+    conn = sqlite3.connect('FlaskAppDB.db')
+    cur = conn.cursor()
+    cur.execute("SELECT sprintStart, sprintEnd FROM sprints")
+    sprints = cur.fetchall()
+    conn.close()
+    print(sprints)
+    return [
+        {
+            'sprintStart': dt.datetime.strptime(sprint[0], '%Y-%m-%d').date(),
+            'sprintEnd': dt.datetime.strptime(sprint[1], '%Y-%m-%d').date()
+        }
+        for sprint in sprints
+    ]
+
+# This function retrieves a ticket by its ID and returns its details along with the user's name.
+def get_ticket_by_id(ticket_id):
+    conn = sqlite3.connect('FlaskAppDB.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM tickets WHERE ticketID=?", (ticket_id,))
+    ticket = cur.fetchone()
+    user = cur.execute("SELECT name FROM users WHERE userID=?", (ticket[2],)).fetchone()
+    conn.close()
+    if ticket:
+        return {
+            'ticketID': ticket[0],
+            'sprintID': ticket[1],
+            'user': user[0],
+            'descr': ticket[3],
+            'storyPoints': ticket[4]
+        }
+    return None

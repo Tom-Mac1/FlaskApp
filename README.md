@@ -3,11 +3,20 @@
 This application provides a single interface to manage projects
 
 # Tables
-- Users: user ID, name and access level
-- Logins (separate to users for security): user ID, password 
-- Sprints: sprint ID, start date, end date
-- Tickets: Ticket ID, sprint ID, userID
-
+## Users
+    Contains user ID, name and access level
+## Logins 
+    separate to users for security
+    Contains user ID, password 
+## Sprints 
+    Contains sprint ID, start date, end date
+## Tickets
+    Contains ticket ID, sprint ID, userID, Description, Story Points
+## Initial data
+- Root user is generated if it doesn't exist
+- 9 other users will be generated if there are less than 2 existing users in place
+- If there are no sprints, 10 will be created
+- If there are no tickets, 1 will be created for each sprint
 # How to use
 Initialise a virtual environment:
 ```bash

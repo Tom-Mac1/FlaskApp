@@ -3,15 +3,16 @@
     <head>
         <title>Create Sprint</title>
         <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'create', 'sprint')">
             <label>Sprint Start:</label>
             <input type="date" name="start" placeholder="Sprint Start" required><br/>
             <label>Sprint End:</label>
             <input type="date" name="end" placeholder="Sprint End" required><br/>
-            <input type = "submit" value = "Enter"/><br/>
+            <input type = "submit" class="btn" value = "Enter"/><br/>
         </form>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
     </body>
 </html>

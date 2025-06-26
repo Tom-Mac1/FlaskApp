@@ -3,15 +3,16 @@
     <head>
         <title>Create User</title>
         <script src="{{ url_for('static', filename='js/confirm.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
+        <button class="btn"  type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'reset', 'password')">
             <label>Existing Password:</label>
             <input type="password" name="password" placeholder="Enter password" required><br/>
             <label>Enter New Password:</label>
             <input type="password" name="newPass" placeholder="Enter new password" required><br/>
-            <input type = "submit" value = "Confirm"/><br/>
+            <input type = "submit" class="btn" value = "Confirm"/><br/>
         </form>
-        <button type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
     </body>
 </html>
