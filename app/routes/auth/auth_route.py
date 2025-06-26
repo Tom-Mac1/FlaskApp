@@ -60,7 +60,6 @@ def join():
             (name,accessID) VALUES (?,?)",
                             (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
-            # TODO hash the password before storing it
             cursor.execute("INSERT INTO logins \
             (userID,password) VALUES (?,?)",
                             (userID, password))
