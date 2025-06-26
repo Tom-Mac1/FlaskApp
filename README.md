@@ -17,18 +17,34 @@ This application provides a single interface to manage projects
 - 9 other users will be generated if there are less than 2 existing users in place
 - If there are no sprints, 10 will be created
 - If there are no tickets, 1 will be created for each sprint
+
 # How to use
-Initialise a virtual environment:
+#### Initialise a virtual environment:
 ```bash
 cd /app
 python3 -m venv venv 
+# python3 is interchangable with python
 venv/Scripts/activate
 pip install -r requirements.txt
 ```
-Run application: Database will auto populate initial values
-
+#### Issues
+If experiencing issues such as Unauthorised when running venv/Scripts/activate do
+the following:
+```bash
+get-executionpolicy
+# Should return restricted
+set-executionpolicy Unrestricted
+# Continue running initialisation commands
+```
+#### Run application: Database will auto populate initial values
 ```bash
 flask run
+```
+- Ctrl+C will end the application
+
+#### Close environment
+```bash
+deactivate
 ```
 
 # Functionality
