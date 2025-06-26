@@ -26,6 +26,7 @@ This application provides a single interface to manage projects
 #### Initialise a virtual environment:
 ```bash
 cd /app
+# May need to do "cd FlaskApp-main" first if downloading code from ZIP
 python3 -m venv venv 
 # python3 is interchangable with python
 venv/Scripts/activate
