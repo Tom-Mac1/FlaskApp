@@ -19,6 +19,10 @@ This application provides a single interface to manage projects
 - If there are no tickets, 1 will be created for each sprint
 
 # How to use
+#### Clone repository
+1. Go to "Code" and select clone with https, or the clone in vscode option
+2. Open VSCode and press "clone git repository", where you will be prompted to paste the link
+
 #### Initialise a virtual environment:
 ```bash
 cd /app
