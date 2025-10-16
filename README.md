@@ -20,7 +20,7 @@ This application provides a single interface to manage projects
 # How to use
 Initialise a virtual environment:
 ```bash
-cd /app
+cd app
 python3 -m venv venv 
 venv/Scripts/activate
 pip install -r requirements.txt

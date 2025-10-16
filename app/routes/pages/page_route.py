@@ -22,9 +22,11 @@ def sprints():
         connect = sqlite3.connect('FlaskAppDB.db')
         cursor = connect.cursor()
         cursor.execute('SELECT * FROM sprints')
-
-        data = cursor.fetchall()
-        return render_template("sprints.html", data=data, access=get_access())
+        sprint_list = cursor.fetchall()
+        cursor.execute('SELECT * FROM tickets')
+        ticket_list = cursor.fetchall()
+        
+        return render_template("sprints.html", sprint_data=sprint_list, ticket_data=ticket_list, access=get_access())
     
 @page_bp.route('/users')
 def users():

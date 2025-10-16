@@ -1,47 +1,90 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Sprints</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <style>
-        table, th, td {
-          border:1px solid black;
-        }
-        </style>
-    <body>
-        <!-- Flashed messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <div class="top-left-buttons">
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>   
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('sprint.createSprints') }}';">Create Sprints</button>
+<head>
+    <title>Sprints</title>
+    <!-- Link to your external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sprints.css') }}">
+</head>
+<body>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="top-left-buttons">
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('sprint.createSprints') }}';">Create Sprint</button>
+    </div>
+
+    <h1>Sprint Board</h1>
+    <p>Select a sprint to view its details and board:</p>
+
+    <select id="sprintSelect" onchange="showSprintInfo()">
+        <option value="">-- Select a Sprint --</option>
+        {% for sprint in sprint_data %}
+            <option value="{{ sprint[0] }}">{{ sprint[0] }}</option>
+        {% endfor %}
+    </select>
+
+    {% for sprint in sprint_data %}
+    <div id="sprint-{{ sprint[0] }}" class="sprint-data" style="display:none;">
+        <div class="sprint-info">
+            <strong>Sprint:</strong> {{ sprint[0] }}
+            <strong>Start:</strong> {{ sprint[1] }}
+            <strong>End:</strong> {{ sprint[2] }}
         </div>
-        <table style="width:100%">
-            <tr>
-              <th>Sprint</th>
-              <th>Start</th>
-              <th>End</th>
-            </tr>
-            {%for sprint in data%}
-                <tr>
-                 <td>{{sprint[0]}}</td>
-                 <td>{{sprint[1]}}</td>
-                 <td>{{sprint[2]}}</td>
-                 {% if access == 1 %}
-                 <td>
-                    <a class="btn btn-red" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint and associated tickets?');">Delete</a>
-                </td>
+
+        <div class="container">
+            <div id="todo-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" ondragleave="dragleaveHandler(event)">
+            <h2>To Do</h2>
+            {% for ticket in ticket_data %}
+                {% if ticket[1] == sprint[0] %}
+                <div id="ticket-{{ ticket[0] }}" 
+                    class="ticket-card" 
+                    draggable="true" 
+                    ondragstart="dragstartHandler(event)">
+                    <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
+                    <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
+                    <div><strong>User ID:</strong> {{ ticket[2] }}</div>
+                    <div><strong>Description:</strong> {{ ticket[3] }}</div>
+                    <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
+
+                    <div class="ticket-actions">
+                        <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
+                        {% if access == 1 %}
+                        <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
                 {% endif %}
-                </tr>
-            {%endfor%}
-          </table>       
-    </body>
+            {% endfor %}
+        </div>
+
+
+            <div id="doing-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" >
+                <h2>In Progress</h2>
+            </div>
+
+            <div id="done-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" >
+                <h2>Done</h2>
+            </div>
+        </div>
+
+        {% if access == 1 %}
+            <br>
+            <a class="btn btn-red" href="{{ url_for('sprint.deleteSprints', sprint_id=sprint[0]) }}" onclick="return confirm('Delete Sprint and associated tickets?');">Delete Sprint</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <!-- Load external JavaScript file -->
+    <script src="{{ url_for('static', filename='js/sprints.js') }}"></script>
+</body>
 </html>

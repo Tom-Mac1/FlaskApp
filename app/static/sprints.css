@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+}
+
+.top-left-buttons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between; /* space between columns */
+    align-items: flex-start;
+    width: 100vw;              /* full viewport width */
+    height: calc(100vh - 200px); /* full screen height minus top info */
+    padding: 20px;
+    gap: 20px;                 /* space between columns */
+    box-sizing: border-box;
+}
+
+.column {
+    flex: 1 1 0;              /* grow, shrink, basis=0 */
+    min-width: 0;             /* allows flex items to shrink correctly */
+    height: 100%;
+    border: 2px solid #aaa;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;          /* scroll if too many tickets */
+    box-sizing: border-box;
+}
+
+.column.drag-over {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+/* Column header */
+.column h2 {
+    text-align: center;
+    margin: 0 0 10px 0;
+    flex-shrink: 0;
+}
+.column img {
+    margin: 10px;
+    cursor: grab;
+}
+
+.sprint-info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.ticket-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;             /* fill the column width */
+    box-sizing: border-box;
+    cursor: grab;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.ticket-card:active {
+    cursor: grabbing;
+}
+
+/* Optional: highlight on dragover */
+.column.drag-over {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
