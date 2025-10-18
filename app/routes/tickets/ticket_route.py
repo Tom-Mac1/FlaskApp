@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, jsonify
 import sqlite3
 from app.utils.utils import get_users, get_future_sprints, get_ticket_by_id
 
@@ -57,3 +57,27 @@ def editTickets(ticket_id):
             return redirect(url_for('page.tickets'))
         else:
             return render_template('editTickets.html', sprints=get_future_sprints(), users=get_users(), ticket=get_ticket_by_id(ticket_id))
+
+@ticket_bp.route('/update_ticket_status/<int:ticket_id>', methods=['POST'])
+def update_ticket_status(ticket_id):
+    data = request.get_json()
+    new_state = data.get('state')
+    sprint = data.get('sprint')
+
+    if not new_state:
+        print("state missing")
+        return jsonify({'error': 'Missing state'}), 400
+    elif not sprint:
+        print("sprint missing")
+        return jsonify({'error': 'Missing sprint'}), 400
+    try:
+        with sqlite3.connect("FlaskAppDB.db") as tickets:
+            cursor = tickets.cursor()
+            print(f"Updating ticket {ticket_id} to state {new_state} and sprint {sprint}")
+            cursor.execute("UPDATE tickets SET state=?, sprintID=? WHERE ticketID=?", (new_state, sprint, ticket_id))
+            tickets.commit()
+            print("Update successful")
+            return jsonify({'success': True, 'ticket_id': ticket_id, 'new_state': new_state}), 200
+    except Exception as e:
+        print("Error updating ticket:", e)
+        return jsonify({'error': str(e)}), 500

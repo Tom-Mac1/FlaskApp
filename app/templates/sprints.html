@@ -43,52 +43,52 @@
 
         <div class="container">
             <div id="todo-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" ondragleave="dragleaveHandler(event)">
-            <h2>To Do</h2>
-            {% for ticket in ticket_data %}
-                {% if ticket[1] == sprint[0] and ticket[5] == "To Do" or ticket[5] == "To Do" %}
-                <div id="ticket-{{ ticket[0] }}" 
-                    class="ticket-card" 
-                    draggable="true" 
-                    ondragstart="dragstartHandler(event)">
-                    <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
-                    <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
-                    <div><strong>User ID:</strong> {{ ticket[2] }}</div>
-                    <div><strong>Description:</strong> {{ ticket[3] }}</div>
-                    <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
+                <h2>To Do</h2>
+                {% for ticket in ticket_data %}
+                    {% if ticket[1] == sprint[0] and ticket[5] == "To Do" or ticket[5] == "To Do" %}
+                        <div id="ticket-{{ ticket[0] }}" 
+                            class="ticket-card" 
+                            draggable="true" 
+                            ondragstart="dragstartHandler(event)">
+                            <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
+                            <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
+                            <div><strong>User ID:</strong> {{ ticket[2] }}</div>
+                            <div><strong>Description:</strong> {{ ticket[3] }}</div>
+                            <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
 
-                    <div class="ticket-actions">
-                        <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
-                        {% if access == 1 %}
-                        <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+                            <div class="ticket-actions">
+                                <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
+                                {% if access == 1 %}
+                                <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
 
 
             <div id="doing-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" >
                 <h2>In Progress</h2>
                 {% for ticket in ticket_data %}
                     {% if ticket[1] == sprint[0] and ticket[5] == "In Progress" %}
-                    <div id="ticket-{{ ticket[0] }}" 
-                        class="ticket-card" 
-                        draggable="true" 
-                        ondragstart="dragstartHandler(event)">
-                        <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
-                        <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
-                        <div><strong>User ID:</strong> {{ ticket[2] }}</div>
-                        <div><strong>Description:</strong> {{ ticket[3] }}</div>
-                        <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
+                        <div id="ticket-{{ ticket[0] }}" 
+                            class="ticket-card" 
+                            draggable="true" 
+                            ondragstart="dragstartHandler(event)">
+                            <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
+                            <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
+                            <div><strong>User ID:</strong> {{ ticket[2] }}</div>
+                            <div><strong>Description:</strong> {{ ticket[3] }}</div>
+                            <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
 
-                        <div class="ticket-actions">
-                            <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
-                            {% if access == 1 %}
-                            <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
-                            {% endif %}
+                            <div class="ticket-actions">
+                                <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
+                                {% if access == 1 %}
+                                <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -97,23 +97,23 @@
                 <h2>Done</h2>
                 {% for ticket in ticket_data %}
                     {% if ticket[1] == sprint[0] and ticket[5] == "Done" %}
-                    <div id="ticket-{{ ticket[0] }}" 
-                        class="ticket-card" 
-                        draggable="true" 
-                        ondragstart="dragstartHandler(event)">
-                        <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
-                        <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
-                        <div><strong>User ID:</strong> {{ ticket[2] }}</div>
-                        <div><strong>Description:</strong> {{ ticket[3] }}</div>
-                        <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
+                        <div id="ticket-{{ ticket[0] }}" 
+                            class="ticket-card" 
+                            draggable="true" 
+                            ondragstart="dragstartHandler(event)">
+                            <div class="ticket-header"><strong>ID:</strong> {{ ticket[0] }}</div>
+                            <div><strong>Sprint:</strong> {{ ticket[1] }}</div>
+                            <div><strong>User ID:</strong> {{ ticket[2] }}</div>
+                            <div><strong>Description:</strong> {{ ticket[3] }}</div>
+                            <div><strong>Story Points:</strong> {{ ticket[4] }}</div>
 
-                        <div class="ticket-actions">
-                            <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
-                            {% if access == 1 %}
-                            <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
-                            {% endif %}
+                            <div class="ticket-actions">
+                                <a class="btn" href="{{ url_for('ticket.editTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Edit ticket?');">Edit</a>
+                                {% if access == 1 %}
+                                <a class="btn btn-red" href="{{ url_for('ticket.deleteTickets', ticket_id=ticket[0]) }}" onclick="return confirm('Delete ticket?');">Delete</a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
                     {% endif %}
                 {% endfor %}
             </div>

@@ -23,15 +23,28 @@ function dropHandler(event) {
         dropZone.appendChild(draggedTicket);
     }
 
-    // Optional: update backend about new status
-    const newStatus = dropZone.querySelector('h2').innerText;
+    const headerText = dropZone.querySelector('h2').innerText.trim();
+    let newStatus = "To Do";
+    if (headerText === "In Progress") newStatus = "In Progress";
+    else if (headerText === "Done") newStatus = "Done";
+
     const ticketId = draggedTicket.id.replace("ticket-", "");
+    const selected = document.getElementById("sprintSelect").value;
 
     fetch(`/update_ticket_status/${ticketId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus })
-    });
+        body: JSON.stringify({ state: newStatus, sprint: selected })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            console.log(`Ticket ${ticketId} updated to ${newStatus}`);
+        } else {
+            console.error("Error updating ticket:", data.error);
+        }
+    })
+    .catch(err => console.error("Fetch error:", err));
 }
 
 function showSprintInfo() {
