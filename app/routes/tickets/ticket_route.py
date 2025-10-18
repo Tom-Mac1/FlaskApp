@@ -51,7 +51,8 @@ def editTickets(ticket_id):
                 id = idList[0]
                 points = int(request.form['StoryPoints'])
                 sprint = int(request.form['Sprint'])
-                cursor.execute("UPDATE tickets SET descr=?, userID=?, storyPoints=?, sprintID=? WHERE ticketID=?", (description, id, points, sprint, ticket_id))
+                state = request.form['State']
+                cursor.execute("UPDATE tickets SET descr=?, userID=?, storyPoints=?, sprintID=?, state=? WHERE ticketID=?", (description, id, points, sprint, state, ticket_id))
             flash("Ticket updated successfully!", "success")
             return redirect(url_for('page.tickets'))
         else:

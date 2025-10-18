@@ -43,6 +43,7 @@ def createTables():
         userID INTEGER,
         descr TEXT NOT NULL,
         storyPoints INTEGER,
+        state TEXT NOT NULL DEFAULT 'To Do',
         FOREIGN KEY (sprintID) REFERENCES sprints(sprintID),
         FOREIGN KEY (userID) REFERENCES users(userID)
     )

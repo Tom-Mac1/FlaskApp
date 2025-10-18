@@ -25,6 +25,12 @@
                     <option value="{{ user }}" {% if user == ticket.user %}selected{% endif %}>{{ user }}</option>
                 {% endfor %}
             </select><br/>
+            <label>Status:</label>
+            <select name="State" required>
+                <option value="To Do" {% if ticket.state == "To Do" %}selected{% endif %}>To Do</option>
+                <option value="In Progress" {% if ticket.state == "In Progress" %}selected{% endif %}>In Progress</option>
+                <option value="Done" {% if ticket.state == "Done" %}selected{% endif %}>Done</option>
+            </select><br/>
             <input type = "submit" class="btn" value = "Enter"/><br/>
         </form>
     </body>
