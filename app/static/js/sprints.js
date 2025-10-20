@@ -51,7 +51,6 @@ function showSprintInfo() {
     const selected = document.getElementById("sprintSelect").value;
     const infoDivs = document.querySelectorAll(".sprint-data");
     infoDivs.forEach(div => div.style.display = "none");
-
     if (selected) {
         const activeSprint = document.getElementById("sprint-" + selected);
         if (activeSprint) activeSprint.style.display = "block";
