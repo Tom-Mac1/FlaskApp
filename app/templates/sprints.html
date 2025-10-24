@@ -45,7 +45,13 @@
         </div>
 
         <div class="container">
-            <div id="todo-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" ondragleave="dragleaveHandler(event)">
+            <div id="todo-{{ sprint[0] }}" 
+                class="column" 
+                data-sprint-id="{{ sprint[0] }}"
+                ondrop="dropHandler(event)" 
+                ondragover="dragoverHandler(event)" 
+                ondragenter="dragenterHandler(event)" 
+                ondragleave="dragleaveHandler(event)">
                 <h2>To Do</h2>
                 {% for ticket in ticket_data %}
                     {% if ticket[1] == sprint[0] and ticket[5] == "To Do" or ticket[5] == "To Do" %}
@@ -71,7 +77,13 @@
             </div>
 
 
-            <div id="doing-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" >
+            <div id="doing-{{ sprint[0] }}" 
+                class="column" 
+                data-sprint-id="{{ sprint[0] }}"
+                ondrop="dropHandler(event)" 
+                ondragover="dragoverHandler(event)" 
+                ondragenter="dragenterHandler(event)" 
+                ondragleave="dragleaveHandler(event)">
                 <h2>In Progress</h2>
                 {% for ticket in ticket_data %}
                     {% if ticket[1] == sprint[0] and ticket[5] == "In Progress" %}
@@ -96,7 +108,13 @@
                 {% endfor %}
             </div>
 
-            <div id="done-{{ sprint[0] }}" class="column" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)" ondragenter="dragenterHandler(event)" >
+            <div id="done-{{ sprint[0] }}" 
+                class="column" 
+                data-sprint-id="{{ sprint[0] }}"
+                ondrop="dropHandler(event)" 
+                ondragover="dragoverHandler(event)" 
+                ondragenter="dragenterHandler(event)" 
+                ondragleave="dragleaveHandler(event)">
                 <h2>Done</h2>
                 {% for ticket in ticket_data %}
                     {% if ticket[1] == sprint[0] and ticket[5] == "Done" %}
@@ -130,6 +148,9 @@
     {% endfor %}
 
     <!-- Load external JavaScript file -->
+    <script>
+        const currentSprintId = {{ selected_sprint_id }};
+    </script>
     <script src="{{ url_for('static', filename='js/sprints.js') }}"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {

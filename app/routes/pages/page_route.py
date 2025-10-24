@@ -29,7 +29,7 @@ def sprints():
         if sprint_id:
             cursor.execute('SELECT * FROM sprints WHERE sprintID = ?', (sprint_id,))
             sprint = cursor.fetchone()
-            cursor.execute('SELECT * FROM tickets WHERE sprintID = ?', (sprint_id,))
+            cursor.execute('SELECT * FROM tickets WHERE state = ? OR sprintID = ?', ("To Do", sprint_id,))
             ticket_list = cursor.fetchall()
             selected_sprint_id = int(sprint_id)
         else:
@@ -38,7 +38,7 @@ def sprints():
             sprint = cursor.fetchone()
             if not sprint:
                 sprint = sprint_list[0]
-            cursor.execute('SELECT * FROM tickets WHERE sprintID = ?', (sprint[0],))
+            cursor.execute('SELECT * FROM tickets WHERE state = ? OR sprintID = ?', ("To Do", sprint[0],))
             ticket_list = cursor.fetchall()
             selected_sprint_id = sprint[0]
 
