@@ -3,7 +3,6 @@ UI:
     - Move View users button to top of menu instead of home
 
     Sprints/Tickets:
-    - Pass default sprint into sprints page to show
     - remove delete ticket button, put on edit page
     Users:
     - Add edit button
