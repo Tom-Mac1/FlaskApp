@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.sprints') }}';">Back</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'create', 'sprint')">
             <label>Sprint Start:</label>
             <input type="date" name="start" placeholder="Sprint Start" required><br/>

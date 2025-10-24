@@ -13,7 +13,7 @@ def deleteTickets(ticket_id):
             cursor = sprints.cursor()
             cursor.execute("DELETE FROM tickets WHERE ticketID=?", (ticket_id,))
         flash("Ticket deleted successfully!", "success")
-        return redirect(url_for('page.tickets'))
+        return redirect(url_for('page.sprints'))
 
 @ticket_bp.route('/createTickets',  methods=['GET', 'POST'])
 def createTickets():
@@ -28,10 +28,9 @@ def createTickets():
                 idList = cursor.execute("SELECT userID FROM users WHERE name=?", (assigned,)).fetchone()
                 id = idList[0]
                 points = int(request.form['StoryPoints'])
-                sprint = int(request.form['Sprint'])
-                cursor.execute("INSERT INTO tickets (descr,userID,storyPoints,sprintID) VALUES (?,?,?,?)", (description, id, points, sprint))
+                cursor.execute("INSERT INTO tickets (descr,userID,storyPoints) VALUES (?,?,?)", (description, id, points))
             flash("New ticket created successfully!", "success")
-            return redirect(url_for('page.tickets'))
+            return redirect(url_for('page.sprints'))
         else:
             users = get_users()
             sprints = get_future_sprints()
@@ -50,11 +49,10 @@ def editTickets(ticket_id):
                 idList = cursor.execute("SELECT userID FROM users WHERE name=?", (assigned,)).fetchone()
                 id = idList[0]
                 points = int(request.form['StoryPoints'])
-                sprint = int(request.form['Sprint'])
-                state = request.form['State']
-                cursor.execute("UPDATE tickets SET descr=?, userID=?, storyPoints=?, sprintID=?, state=? WHERE ticketID=?", (description, id, points, sprint, state, ticket_id))
+                sprint = cursor.execute("SELECT sprintID FROM tickets WHERE ticketID=?", (ticket_id,)).fetchone()[0]
+                cursor.execute("UPDATE tickets SET descr=?, userID=?, storyPoints=? WHERE ticketID=?", (description, id, points, ticket_id))
             flash("Ticket updated successfully!", "success")
-            return redirect(url_for('page.tickets'))
+            return redirect(url_for('page.sprints', sprint_id=sprint))
         else:
             return render_template('editTickets.html', sprints=get_future_sprints(), users=get_users(), ticket=get_ticket_by_id(ticket_id))
 

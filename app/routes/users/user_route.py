@@ -60,14 +60,14 @@ def resetPass():
                 existingPass = cursor.execute("SELECT password FROM logins WHERE userID=?", (userID,)).fetchone()
                 if password != existingPass[0]:
                     flash("Incorrect password entered.", "error")
-                    return redirect(url_for('page.home'))
+                    return redirect(url_for('page.sprints'))
                 elif len(newPass) < 8 or not any(char.isdigit() for char in newPass) or not any(char.isupper() for char in newPass) or not any(char in "!@#$%^&*()-_=+[]{}|;:,.<>?/" for char in newPass):
                     flash("Password must be at least 8 characters long and contain at least 1 number, special character and capital letter.", "error")
-                    return redirect(url_for('page.home'))
+                    return redirect(url_for('page.sprints'))
                 else:
                     # TODO hash the password before storing it
                     cursor.execute("UPDATE logins SET password=? WHERE userID=?", (newPass, userID))
             flash("Password reset successfully!", "success")
-            return redirect(url_for('page.home'))
+            return redirect(url_for('page.users'))
         else:
             return render_template('resetPass.html')
