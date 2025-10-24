@@ -1,24 +1,19 @@
-BIG IMPORTANT FIX
-    - STOP THE DUPLICATION: when dragging and dropping tickets, sometimes up to 10 duplicates of 1 ticket can be made
-
 UI:
+    - Default to sprints page
+    - Move View users button to top of menu instead of home
+
     Sprints/Tickets:
-    - pass sprint into loading sprint page for initial dropdown
-    - when choose new sprint, reload page with different sprint passed in
-    - remove delete button, put on edit page
-    - edit page takes you back to the view sprints page (pass in sprint you were on)
+    - Pass default sprint into sprints page to show
+    - remove delete ticket button, put on edit page
     Users:
     - Add edit button
-    - Edit should be done via popup rather than new page
-
-DB:
-    Sprints/Tickets
 
 Deployment
     Container:
-    - Docker for image
-    - Hosting solution
+    - Dockerise app
     - How does it work when using database with docker
+    - Hosting solution what is available to free tier
+    - Potential for kubernetes?
     - Integrate with ECS, Lambda, RDS
 
 Done
