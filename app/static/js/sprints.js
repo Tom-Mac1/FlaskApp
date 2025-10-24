@@ -56,3 +56,14 @@ function showSprintInfo() {
         if (activeSprint) activeSprint.style.display = "block";
     }
 }
+
+function loadSprint() {
+    const select = document.getElementById("sprintSelect");
+    const sprintId = select.value;
+
+    if (sprintId) {
+        window.location.href = `/sprints?sprint_id=${sprintId}`;
+    } else {
+        window.location.href = `/sprints`;
+    }
+}
