@@ -1,9 +1,6 @@
 UI:
-    - Default to sprints page
-    - Move View users button to top of menu instead of home
-
-    Sprints/Tickets:
-    - remove delete ticket button, put on edit page
+    Sprints:
+    - Cut down description in small box, expand when editing
     Users:
     - Add edit button
 
@@ -24,3 +21,7 @@ Done
     - Anything Doing or Done only shows in that sprint
     - Anything in ToDo should be accessible to all sprints
     - When moved to doing or done, updates db to reflect status
+    - Default to sprints page
+    - All buttons work via sprints page
+    - Need to remove all references to page.home and make it page.sprints
+    - When editing ticket, note sprint ID and load it in when going back

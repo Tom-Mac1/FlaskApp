@@ -21,7 +21,8 @@
             {% endif %}
         {% endwith %}
         <div class="top-left-buttons">
-            <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/> 
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.sprints') }}';">Back</button><br/>
+            <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.resetPass') }}';">Reset password</button>
             {% if access == 1 %}
                 <button class="btn" type="button" onclick="window.location.href='{{ url_for('user.createUsers') }}';">Create Users</button>
             {% endif %}

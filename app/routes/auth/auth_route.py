@@ -32,7 +32,7 @@ def login():
             # create user session
             session['user_id'] = id
             session['username'] = name
-            return render_template("home.html")
+            return redirect(url_for('page.sprints'))
         else:
             flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
@@ -68,6 +68,6 @@ def join():
             id = idList[0]
             session['user_id'] = id
             session['username'] = name
-        return render_template("home.html")
+        return redirect(url_for('page.sprints'))
     else:
         return render_template('join.html')

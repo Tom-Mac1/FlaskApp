@@ -9,12 +9,6 @@ page_bp = Blueprint('page', __name__)
 def index():
     return render_template('index.html')
 
-@page_bp.route('/home')
-def home():
-    if session.get('user_id') == None:
-        return render_template('index.html')
-    return render_template('home.html')
-
 @page_bp.route('/sprints')
 def sprints():
     if session.get('user_id') == None:

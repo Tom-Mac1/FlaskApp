@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.users') }}';">Back</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'create', 'user')">
             <label>Enter Name:</label>
             <input type="text" name="name" placeholder="Enter name" required><br/>

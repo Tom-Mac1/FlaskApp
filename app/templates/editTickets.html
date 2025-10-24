@@ -6,17 +6,11 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     <body>
-        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.home') }}';">Home</button><br/>
+        <button class="btn" type="button" onclick="window.location.href='{{ url_for('page.sprints') }}';">Back</button><br/>
         <form method="POST" onsubmit="confirmSubmission(event, 'edit', 'ticket')">
             <label>Ticket ID: {{ ticket.ticketID }}</label><br/>
             <label>Description:</label>
             <input type="text" name="Description" value="{{ ticket.descr }}" required><br/>
-            <!-- <label>Sprint:</label>
-            <select name="Sprint" required>
-                {% for sprint in sprints %}
-                    <option value="{{ sprint }}" {% if sprint == ticket.sprintID %}selected{% endif %}>{{ sprint }}</option>
-                {% endfor %}
-            </select><br/> -->
             <label>Story Points:</label>
             <input type="number" name="StoryPoints" value="{{ ticket.storyPoints }}" required><br/>
             <label>Assigned to:</label>
