@@ -115,4 +115,3 @@ def initialValues():
     cur.close()
     con.commit()
     con.close()
-    
