@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
 from app.utils.utils import get_access, get_users, get_sprints, get_tickets
+import bcrypt 
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -22,16 +23,20 @@ def login():
         idList = cur1.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
         if idList != None:
             id = idList[0]
-        pw = cur1.execute("SELECT password FROM logins WHERE userID="+str(id)).fetchone()
+        pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID="+str(id)).fetchone()
         if pw == None:
             flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
         else:
             pw = pw[0]
-        if password == str(pw):
+            pw = pw.encode('utf-8')
+        print ("Retrieved hashed password from DB:", pw)
+        #if password == str(pw):
+        if bcrypt.checkpw(password.encode('utf-8'), pw):
             # create user session
             session['user_id'] = id
             session['username'] = name
+            session['access'] = get_access()
             return redirect(url_for('page.sprints'))
         else:
             flash("Invalid username/password", "error")
@@ -61,9 +66,10 @@ def join():
                             (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
             # TODO hash the password before storing it
+            password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             cursor.execute("INSERT INTO logins \
-            (userID,password) VALUES (?,?)",
-                            (userID, password))
+            (userID,password_hashed) VALUES (?,?)",
+                            (userID, password_hashed))
             idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             id = idList[0]
             session['user_id'] = id

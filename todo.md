@@ -1,8 +1,8 @@
-UI:
-    Sprints:
-    - Cut down description in small box, expand when editing
-    Users:
-    - Add edit button
+Most pressing
+    - Unit testing
+    - Linting
+    - OWASP top 10 attacks, defend from 3
+    - Hosting
 
 Deployment
     Container:
@@ -25,3 +25,8 @@ Done
     - All buttons work via sprints page
     - Need to remove all references to page.home and make it page.sprints
     - When editing ticket, note sprint ID and load it in when going back
+    - password hashing
+
+
+Security considerations
+    - passwords are hashed

@@ -9,7 +9,7 @@ sprint_bp = Blueprint('sprint', __name__)
 @sprint_bp.route('/deleteSprints<int:sprint_id>', methods=['GET', 'POST'])
 def deleteSprints(sprint_id):
     # If user is not logged in, redirect to index page
-    if session.get('user_id') is None:
+    if session.get('user_id') is None or session.get('access') != 1:
         return render_template('index.html')
     else:
         # Delete sprint selected

@@ -1,4 +1,6 @@
 import sqlite3
+import bcrypt
+
 def createTables():
     # connect to existing db, or create
     con = sqlite3.connect("FlaskAppDB.db")
@@ -21,7 +23,7 @@ def createTables():
     cur.execute("""
     CREATE TABLE IF NOT EXISTS logins (
         userID INTEGER PRIMARY KEY,
-        password TEXT NOT NULL,
+        password_hashed TEXT NOT NULL,
         FOREIGN KEY (userID) REFERENCES users(userID)
     )
     """)
@@ -62,38 +64,23 @@ def initialValues():
     # CREATE ADMIN (ROOT) USER AND PASSWORD
     cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("root", 1))
     userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("root",)).fetchone()[0]
-    cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "rootPW"))
+    rootPW = "rootPW".encode("utf-8")
+    hashed_rootPW = bcrypt.hashpw(rootPW, bcrypt.gensalt())
+    hashed_rootPW_str = hashed_rootPW.decode("utf-8")
+    cur.execute("INSERT OR IGNORE INTO logins (userID, password_hashed) VALUES (?, ?)", (userID, hashed_rootPW_str))
 
-    # CREATE 9 STANDARD USERS AND PASSWORDS
+    # CREATE 9 STANDARD USERS AND PASSWORDS     
     userTotal = cur.execute("SELECT COUNT(*) FROM users").fetchone()[0]
     if userTotal <= 2:
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User1", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User1",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User1PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User2", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User2",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User2PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User3", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User3",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User3PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User4", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User4",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User4PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User5", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User5",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User5PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User6", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User6",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User6PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User7", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User7",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User7PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User8", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User8",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User8PW"))
-        cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", ("User9", 2))
-        userID = cur.execute("SELECT userID FROM users WHERE name = ?", ("User9",)).fetchone()[0]
-        cur.execute("INSERT OR IGNORE INTO logins (userID, password) VALUES (?, ?)", (userID, "User9PW"))
+        for x in range(userTotal, 10):
+            user = "User" + str(x)
+            cur.execute("INSERT OR IGNORE INTO users (name, accessID) VALUES (?, ?)", (user, 2))
+            userID = cur.execute("SELECT userID FROM users WHERE name = ?", (user,)).fetchone()[0]
+            pw = user + "PW"
+            password = pw.encode("utf-8")
+            hashed_pw = bcrypt.hashpw(password, bcrypt.gensalt())
+            hashed_pw_str = hashed_pw.decode("utf-8")
+            cur.execute("INSERT OR IGNORE INTO logins (userID, password_hashed) VALUES (?, ?)", (userID, hashed_pw_str))
     else:
         print("Users already exist, skipping user creation.")
 
