@@ -2,6 +2,7 @@ import sqlite3
 from flask import session
 import datetime as dt
 
+
 def get_access():
     conn = sqlite3.connect('FlaskAppDB.db')
     cur = conn.cursor()
@@ -9,7 +10,8 @@ def get_access():
     access = cur.fetchone()
     conn.close()
     return int(access[0])
-    
+
+
 def get_users():
     conn = sqlite3.connect('FlaskAppDB.db')
     cur = conn.cursor()
@@ -17,6 +19,7 @@ def get_users():
     users = cur.fetchall()
     conn.close()
     return [user[0] for user in users]
+
 
 def get_sprints():
     conn = sqlite3.connect('FlaskAppDB.db')
@@ -27,6 +30,7 @@ def get_sprints():
     conn.close()
     return [sprint[0] for sprint in sprints]
 
+
 def get_tickets():
     conn = sqlite3.connect('FlaskAppDB.db')
     cur = conn.cursor()
@@ -35,6 +39,7 @@ def get_tickets():
     conn.close()
     return [ticket[0] for ticket in tickets]
 
+
 def get_future_sprints():
     conn = sqlite3.connect('FlaskAppDB.db')
     cur = conn.cursor()
@@ -42,6 +47,7 @@ def get_future_sprints():
     sprints = cur.fetchall()
     conn.close()
     return [sprint[0] for sprint in sprints]
+
 
 def get_sprint_dates():
     conn = sqlite3.connect('FlaskAppDB.db')
@@ -57,6 +63,7 @@ def get_sprint_dates():
         }
         for sprint in sprints
     ]
+
 
 # This function retrieves a ticket by its ID and returns its details along with the user's name.
 def get_ticket_by_id(ticket_id):
