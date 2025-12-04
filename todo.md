@@ -1,16 +1,13 @@
 Most pressing
     - Unit testing
-    - Linting
-    - OWASP top 10 attacks, defend from 3
     - Hosting
 
+Note
+    - SQLite is ok but not great at scale
+    - Alternative would be to migrate to SQLAlchemy if the demand were to pick up
+
 Deployment
-    Container:
-    - Dockerise app
-    - How does it work when using database with docker
-    - Hosting solution what is available to free tier
-    - Potential for kubernetes?
-    - Integrate with ECS, Lambda, RDS
+    - render
 
 Done
     - Dropdown at top for what sprint
