@@ -1,6 +1,7 @@
 import sqlite3
 import bcrypt
 
+
 def createTables():
     # connect to existing db, or create
     con = sqlite3.connect("FlaskAppDB.db")
@@ -19,7 +20,7 @@ def createTables():
     )
     """)
 
-    # Table 2: Logins 
+    # Table 2: Logins
     cur.execute("""
     CREATE TABLE IF NOT EXISTS logins (
         userID INTEGER PRIMARY KEY,
@@ -53,7 +54,8 @@ def createTables():
     cur.close()
     con.commit()
     con.close()
-    
+
+
 def initialValues():
     # connect to existing db, or create
     con = sqlite3.connect("FlaskAppDB.db")
@@ -69,7 +71,7 @@ def initialValues():
     hashed_rootPW_str = hashed_rootPW.decode("utf-8")
     cur.execute("INSERT OR IGNORE INTO logins (userID, password_hashed) VALUES (?, ?)", (userID, hashed_rootPW_str))
 
-    # CREATE 9 STANDARD USERS AND PASSWORDS     
+    # CREATE 9 STANDARD USERS AND PASSWORDS
     userTotal = cur.execute("SELECT COUNT(*) FROM users").fetchone()[0]
     if userTotal <= 2:
         for x in range(userTotal, 10):
@@ -113,5 +115,4 @@ def initialValues():
     cur.close()
     con.commit()
     con.close()
-
     
