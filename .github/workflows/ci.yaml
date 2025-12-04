@@ -31,10 +31,10 @@ jobs:
       # Step 4: Flake8 linting
       - name: Flake8 lint
         run: |
-          flake8 app/app.py --max-line-length=140
-          flake8 app/db --max-line-length=160
-          flake8 app/routes --max-line-length=140
-          flake8 app/utils --max-line-length=140
+          flake8 app/app.py
+          flake8 app/db
+          flake8 app/routes
+          flake8 app/utils
 
       # Step 5: Safety check for known vulnerabilities
       - name: Safety check

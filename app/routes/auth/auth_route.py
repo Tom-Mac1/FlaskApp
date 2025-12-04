@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
 from app.utils.utils import get_access
-import bcrypt 
+import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -32,8 +32,7 @@ def login():
         else:
             pw = pw[0]
             pw = pw.encode('utf-8')
-        print ("Retrieved hashed password from DB:", pw)
-        #if password == str(pw):
+        print("Retrieved hashed password from DB:", pw)
         if bcrypt.checkpw(password.encode('utf-8'), pw):
             # create user session
             session['user_id'] = id
@@ -61,18 +60,18 @@ def join():
 
             password = request.form['password']
             if len(password) < 8 or not any(char.isdigit() for char in password) or not any(char.isupper() for char in password) or not any(char in "!@#$%^&*()-_=+[]{}|;:,.<>?/" for char in password):
-                flash("Password must be at least 8 characters long and contain at least 1 number, special character and capital letter.", "error")
+                flash("Password must be 8+ characters long and contain at least 1 number, special character and capital letter.", "error")
                 return redirect(url_for('page.index'))
 
             cursor.execute("INSERT INTO users \
             (name,accessID) VALUES (?,?)",
-                            (name, 2))
+            (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
             # TODO hash the password before storing it
             password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             cursor.execute("INSERT INTO logins \
             (userID,password_hashed) VALUES (?,?)",
-                            (userID, password_hashed))
+            (userID, password_hashed))
             idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             id = idList[0]
             session['user_id'] = id

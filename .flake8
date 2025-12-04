@@ -1,4 +1,4 @@
 [flake8]
 max-line-length = 160
 exclude = 
-    */__init__.py
+    */__init__.py # Ignore __init__.py files as they have unused imports but are needed for package initialization
