@@ -60,8 +60,11 @@ def resetPass():
                 userID = session.get('user_id')
                 password = request.form['password']
                 newPass = request.form['newPass']
-                existingPass = cursor.execute("SELECT password FROM logins WHERE userID=?", (userID,)).fetchone()
-                if password != existingPass[0]:
+                existingPass = cursor.execute("SELECT password_hashed FROM logins WHERE userID=?", (userID,)).fetchone()
+                pw = existingPass[0]
+                pw = pw.encode('utf-8')
+                print("Retrieved hashed password from DB:", pw)
+                if not bcrypt.checkpw(password.encode('utf-8'), pw):
                     flash("Incorrect password entered.", "error")
                     return redirect(url_for('page.sprints'))
                 elif len(newPass) < 8 or not any(char.isdigit() for char in newPass) or not any(char.isupper() for char in newPass) or not any(char in "!@#$%^&*()-_=+[]{}|;:,.<>?/" for char in newPass):
