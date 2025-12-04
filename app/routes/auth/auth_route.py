@@ -63,15 +63,11 @@ def join():
                 flash("Password must be 8+ characters long and contain at least 1 number, special character and capital letter.", "error")
                 return redirect(url_for('page.index'))
 
-            cursor.execute("INSERT INTO users \
-                (name,accessID) VALUES (?,?)",
-                    (name, 2))
+            cursor.execute("INSERT INTO users (name,accessID) VALUES (?,?)", (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
             # TODO hash the password before storing it
             password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-            cursor.execute("INSERT INTO logins \
-                (userID,password_hashed) VALUES (?,?)",
-                    (userID, password_hashed))
+            cursor.execute("INSERT INTO logins (userID,password_hashed) VALUES (?,?)", (userID, password_hashed))
             idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             id = idList[0]
             session['user_id'] = id
