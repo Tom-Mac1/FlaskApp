@@ -38,7 +38,7 @@ jobs:
 
       # Step 5: Safety check for known vulnerabilities
       - name: Safety check
-        run: safety check --full-report
+        run: safety scan --full-report
 
       # Step 6: Pip audit for CVEs
       - name: Pip audit
