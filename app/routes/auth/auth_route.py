@@ -65,13 +65,13 @@ def join():
 
             cursor.execute("INSERT INTO users \
                 (name,accessID) VALUES (?,?)",
-                (name, 2))
+                    (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
             # TODO hash the password before storing it
             password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             cursor.execute("INSERT INTO logins \
                 (userID,password_hashed) VALUES (?,?)",
-                (userID, password_hashed))
+                    (userID, password_hashed))
             idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             id = idList[0]
             session['user_id'] = id
