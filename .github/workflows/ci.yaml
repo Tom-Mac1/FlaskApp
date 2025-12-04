@@ -36,12 +36,12 @@ jobs:
           flake8 app/routes
           flake8 app/utils
 
-      # Step 5: Safety check for known vulnerabilities
-      - name: Safety check
-        run: safety scan --full-report
+      # Step 5: Safety check for known vulnerabilities - NOTE deprecated command
+      - name: CVE safety check
+        run: safety check --full-report
 
       # Step 6: Pip audit for CVEs
-      - name: Pip audit
+      - name: Pip CVE audit
         run: pip-audit
 
       # Step 7: Deploy to Render
