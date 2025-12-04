@@ -23,7 +23,7 @@ def login():
         idList = cur1.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
         if idList != None:
             id = idList[0]
-        pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID="+str(id)).fetchone()
+        pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID=?", (str(id))).fetchone()
         if pw == None:
             flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
