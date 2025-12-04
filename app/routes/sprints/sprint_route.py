@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
-from app.utils.utils import get_sprints, get_sprint_dates
+from app.utils.utils import get_sprint_dates
 import datetime as dt
 
 sprint_bp = Blueprint('sprint', __name__)

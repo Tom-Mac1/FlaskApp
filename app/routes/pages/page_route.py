@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from flask import Blueprint, render_template, request, session
 import sqlite3
-from app.utils.utils import get_access, get_users, get_sprints, get_tickets
+from app.utils.utils import get_access
 import datetime as dt 
 
 page_bp = Blueprint('page', __name__)
