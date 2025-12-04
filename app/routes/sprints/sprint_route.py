@@ -20,7 +20,8 @@ def deleteSprints(sprint_id):
             cursor.execute("DELETE FROM tickets WHERE sprintID = ?", (sprint_id,))
         flash("Sprint deleted successfully!", "success")
         return redirect(url_for('page.sprints'))
-    
+
+
 @sprint_bp.route('/createSprints',  methods=['GET', 'POST'])
 def createSprints():
     if session.get('user_id') == None:

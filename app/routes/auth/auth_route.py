@@ -5,11 +5,13 @@ import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/logout')
 def logout():
     session.clear()
     flash("Successfully logged out.", "success")
     return redirect(url_for('page.index'))
+
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -43,7 +45,8 @@ def login():
             return redirect(url_for('auth.login'))
     else:
         return render_template('login.html')
-        
+
+
 @auth_bp.route('/join', methods=['GET', 'POST'])
 def join():
     if request.method == 'POST':

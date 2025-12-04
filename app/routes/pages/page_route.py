@@ -5,9 +5,11 @@ import datetime as dt
 
 page_bp = Blueprint('page', __name__)
 
+
 @page_bp.route('/')
 def index():
     return render_template('index.html')
+
 
 @page_bp.route('/sprints')
 def sprints():
@@ -44,7 +46,8 @@ def sprints():
             selected_sprint_id=selected_sprint_id,
             access=get_access()
         )
-    
+
+
 @page_bp.route('/users')
 def users():
     if session.get('user_id') == None:
@@ -56,7 +59,8 @@ def users():
 
         data = cursor.fetchall()
         return render_template("users.html", data=data, access=get_access())
-    
+
+
 @page_bp.route('/tickets')
 def tickets():
     if session.get('user_id') == None:

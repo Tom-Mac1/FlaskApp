@@ -3,6 +3,7 @@ import sqlite3
 
 user_bp = Blueprint('user', __name__)
 
+
 @user_bp.route('/deleteUsers<int:user_id>',  methods=['GET', 'POST'])
 def deleteUsers(user_id):
     if session.get('user_id') == None:
@@ -20,7 +21,8 @@ def deleteUsers(user_id):
                 cursor.execute("UPDATE tickets SET userID=0 WHERE userID=?", (user_id,))
         flash("User deleted successfully!", "success")
         return redirect(url_for('page.users'))
-               
+
+
 @user_bp.route('/createUsers',  methods=['GET', 'POST'])
 def createUsers():
     if session.get('user_id') == None:
@@ -44,6 +46,7 @@ def createUsers():
             return redirect(url_for('page.users'))
         else:
             return render_template('createUsers.html')
+
 
 @user_bp.route('/resetPass', methods=['GET', 'POST'])
 def resetPass():
