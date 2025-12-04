@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session, flash, redirect, url_for
 import sqlite3
+import bcrypt
 
 user_bp = Blueprint('user', __name__)
 
@@ -68,7 +69,8 @@ def resetPass():
                     return redirect(url_for('page.sprints'))
                 else:
                     # TODO hash the password before storing it
-                    cursor.execute("UPDATE logins SET password=? WHERE userID=?", (newPass, userID))
+                    password_hashed = bcrypt.hashpw(newPass.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                    cursor.execute("UPDATE logins SET password_hashed=? WHERE userID=?", (password_hashed, userID))
             flash("Password reset successfully!", "success")
             return redirect(url_for('page.users'))
         else:
