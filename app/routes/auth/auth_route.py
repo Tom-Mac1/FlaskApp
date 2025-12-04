@@ -23,10 +23,10 @@ def login():
         cur1 = con1.cursor()
         cur1.execute("PRAGMA foreign_keys = ON;")
         idList = cur1.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
-        if idList != None:
+        if idList is not None:
             id = idList[0]
         pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID=?", (str(id))).fetchone()
-        if pw == None:
+        if pw is None:
             flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
         else:
@@ -64,14 +64,14 @@ def join():
                 return redirect(url_for('page.index'))
 
             cursor.execute("INSERT INTO users \
-            (name,accessID) VALUES (?,?)",
-            (name, 2))
+                (name,accessID) VALUES (?,?)",
+                (name, 2))
             userID = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0]
             # TODO hash the password before storing it
             password_hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
             cursor.execute("INSERT INTO logins \
-            (userID,password_hashed) VALUES (?,?)",
-            (userID, password_hashed))
+                (userID,password_hashed) VALUES (?,?)",
+                (userID, password_hashed))
             idList = cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
             id = idList[0]
             session['user_id'] = id

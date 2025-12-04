@@ -5,6 +5,7 @@ import datetime as dt
 
 sprint_bp = Blueprint('sprint', __name__)
 
+
 # Delete sprints with an ID being passed in from the call
 @sprint_bp.route('/deleteSprints<int:sprint_id>', methods=['GET', 'POST'])
 def deleteSprints(sprint_id):
@@ -24,7 +25,7 @@ def deleteSprints(sprint_id):
 
 @sprint_bp.route('/createSprints',  methods=['GET', 'POST'])
 def createSprints():
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         if request.method == 'POST':

@@ -6,7 +6,7 @@ user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/deleteUsers<int:user_id>',  methods=['GET', 'POST'])
 def deleteUsers(user_id):
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         with sqlite3.connect("FlaskAppDB.db") as sprints:
@@ -25,7 +25,7 @@ def deleteUsers(user_id):
 
 @user_bp.route('/createUsers',  methods=['GET', 'POST'])
 def createUsers():
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         if request.method == 'POST':
@@ -50,7 +50,7 @@ def createUsers():
 
 @user_bp.route('/resetPass', methods=['GET', 'POST'])
 def resetPass():
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         if request.method == 'POST':

@@ -4,9 +4,10 @@ from app.utils.utils import get_users, get_future_sprints, get_ticket_by_id
 
 ticket_bp = Blueprint('ticket', __name__)
 
+
 @ticket_bp.route('/deleteTicket/<int:ticket_id>',  methods=['GET', 'POST'])
 def deleteTickets(ticket_id):
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         with sqlite3.connect("FlaskAppDB.db") as sprints:
@@ -15,9 +16,10 @@ def deleteTickets(ticket_id):
         flash("Ticket deleted successfully!", "success")
         return redirect(url_for('page.sprints'))
 
+
 @ticket_bp.route('/createTickets',  methods=['GET', 'POST'])
 def createTickets():
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         if request.method == 'POST':
@@ -36,9 +38,10 @@ def createTickets():
             sprints = get_future_sprints()
             return render_template('createTickets.html', users=users, sprints=sprints)
 
+
 @ticket_bp.route('/editTickets<int:ticket_id>',  methods=['GET', 'POST'])
 def editTickets(ticket_id):
-    if session.get('user_id') == None:
+    if session.get('user_id') is None:
         return render_template('index.html')
     else:
         if request.method == 'POST':
@@ -55,6 +58,7 @@ def editTickets(ticket_id):
             return redirect(url_for('page.sprints', sprint_id=sprint))
         else:
             return render_template('editTickets.html', sprints=get_future_sprints(), users=get_users(), ticket=get_ticket_by_id(ticket_id))
+
 
 @ticket_bp.route('/update_ticket_status/<int:ticket_id>', methods=['POST'])
 def update_ticket_status(ticket_id):
