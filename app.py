@@ -1,8 +1,8 @@
 import os
 from flask import Flask
 import secrets
-from .routes import all_bp
-from .db.db_init import createTables, initialValues
+from app.routes import all_bp
+from app.db.db_init import createTables, initialValues
 
 def create_app():
     app = Flask(__name__)
