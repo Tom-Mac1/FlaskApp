@@ -5,7 +5,9 @@ from app.routes import all_bp
 from app.db.db_init import createTables, initialValues
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__,
+        template_folder=os.path.join(os.path.dirname(__file__),'app', 'templates'),
+        static_folder=os.path.join(os.path.dirname(__file__),'app', 'static'))
     app.secret_key = secrets.token_hex(16)
     createTables()
     initialValues()
