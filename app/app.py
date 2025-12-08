@@ -1,8 +1,21 @@
-from app import create_app
 import os
+from flask import Flask
+import secrets
+from .routes import all_bp
+from .db.db_init import createTables, initialValues
+
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = secrets.token_hex(16)
+    createTables()
+    initialValues()
+
+    for route in all_bp:
+        app.register_blueprint(route)
+
+    return app
 
 app = create_app()
-#app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
