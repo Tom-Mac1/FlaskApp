@@ -1,23 +1,5 @@
-# from app import create_app
-# import os
-
-# app = create_app()
+from app import create_app
 import os
-from flask import Flask
-import secrets
-from app.routes import all_bp
-from app.db.db_init import createTables, initialValues
-
-def create_app():
-    app = Flask(__name__)
-    app.secret_key = secrets.token_hex(16)
-    createTables()
-    initialValues()
-
-    for route in all_bp:
-        app.register_blueprint(route)
-
-    return app
 
 app = create_app()
 #app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
