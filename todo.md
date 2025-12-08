@@ -1,5 +1,11 @@
 Most pressing
     - Unit testing
+        https://chatgpt.com/c/69316142-cbbc-8329-ab27-1ed5ae49c5fd
+        - login/pw comparisons
+        - admin operations as a standard user
+        - ticket management
+        - valid/invalid data inputs
+        - sql injection
     - Hosting
 
 Note

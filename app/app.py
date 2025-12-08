@@ -3,7 +3,7 @@ import os
 
 app = create_app()
 
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+#app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
@@ -12,4 +12,5 @@ app.config.update(
 )
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False,host="0.0.0.0", port=port)
