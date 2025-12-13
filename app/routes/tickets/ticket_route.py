@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, jsonify, abort
 import sqlite3
 from app.utils.utils import get_users, get_future_sprints, get_ticket_by_id
 
@@ -8,6 +8,7 @@ ticket_bp = Blueprint('ticket', __name__)
 @ticket_bp.route('/deleteTicket/<int:ticket_id>',  methods=['GET', 'POST'])
 def deleteTickets(ticket_id):
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         with sqlite3.connect("FlaskAppDB.db") as sprints:
@@ -20,6 +21,7 @@ def deleteTickets(ticket_id):
 @ticket_bp.route('/createTickets',  methods=['GET', 'POST'])
 def createTickets():
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         if request.method == 'POST':
@@ -42,6 +44,7 @@ def createTickets():
 @ticket_bp.route('/editTickets<int:ticket_id>',  methods=['GET', 'POST'])
 def editTickets(ticket_id):
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         if request.method == 'POST':

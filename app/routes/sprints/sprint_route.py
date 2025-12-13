@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, abort
 import sqlite3
 from app.utils.utils import get_sprint_dates
 import datetime as dt
@@ -11,6 +11,7 @@ sprint_bp = Blueprint('sprint', __name__)
 def deleteSprints(sprint_id):
     # If user is not logged in, redirect to index page
     if session.get('user_id') is None or session.get('access') != 1:
+        abort(403)
         return render_template('index.html')
     else:
         # Delete sprint selected
@@ -26,6 +27,7 @@ def deleteSprints(sprint_id):
 @sprint_bp.route('/createSprints',  methods=['GET', 'POST'])
 def createSprints():
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         if request.method == 'POST':

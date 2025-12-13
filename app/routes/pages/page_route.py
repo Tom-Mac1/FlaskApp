@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, abort
 import sqlite3
 from app.utils.utils import get_access
 import datetime as dt
@@ -14,6 +14,7 @@ def index():
 @page_bp.route('/sprints')
 def sprints():
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         sprint_id = request.args.get('sprint_id')
@@ -51,6 +52,7 @@ def sprints():
 @page_bp.route('/users')
 def users():
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         connect = sqlite3.connect('FlaskAppDB.db')
@@ -64,6 +66,7 @@ def users():
 @page_bp.route('/tickets')
 def tickets():
     if session.get('user_id') is None:
+        abort(403)
         return render_template('index.html')
     else:
         print(get_access())
