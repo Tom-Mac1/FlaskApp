@@ -42,7 +42,9 @@ def createUsers():
                     flash("Username already exists. Please choose a different username.", "error")
                     return redirect(url_for('page.users'))
                 cursor.execute("INSERT INTO users (name,accessID) VALUES (?,?)", (name, admin))
-                cursor.execute("INSERT INTO logins (userID,password) VALUES (?,?)", (cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0], password))
+                password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+                print(password)
+                cursor.execute("INSERT INTO logins (userID,password_hashed) VALUES (?,?)", (cursor.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()[0], password))
             flash("New User created successfully!", "success")
             return redirect(url_for('page.users'))
         else:

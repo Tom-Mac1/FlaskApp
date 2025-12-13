@@ -1,4 +1,5 @@
 Most pressing
+    - In assignment
     - Unit testing
         https://chatgpt.com/c/69316142-cbbc-8329-ab27-1ed5ae49c5fd
         - login/pw comparisons
@@ -6,7 +7,12 @@ Most pressing
         - ticket management
         - valid/invalid data inputs
         - sql injection
-    - Hosting
+    - Security test
+        - find tests for the specified OWASP vulns
+    - Scan in pipeline
+        - Bandit scan
+    - Branch policies
+        - enable on main and dev
 
 Note
     - SQLite is ok but not great at scale

@@ -10,6 +10,8 @@ auth_bp = Blueprint('auth', __name__)
 def logout():
     session.clear()
     flash("Successfully logged out.", "success")
+    print("User logged out, session cleared.")
+    print("Current session data after logout:", dict(session))
     return redirect(url_for('page.index'))
 
 
@@ -25,14 +27,13 @@ def login():
         idList = cur1.execute("SELECT userID FROM users WHERE name=?", (name,)).fetchone()
         if idList is not None:
             id = idList[0]
-        pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID=?", (str(id))).fetchone()
+        pw = cur1.execute("SELECT password_hashed FROM logins WHERE userID=?", (id,)).fetchone()
         if pw is None:
             flash("Invalid username/password", "error")
             return redirect(url_for('auth.login'))
         else:
             pw = pw[0]
             pw = pw.encode('utf-8')
-        print("Retrieved hashed password from DB:", pw)
         if bcrypt.checkpw(password.encode('utf-8'), pw):
             # create user session
             session['user_id'] = id
