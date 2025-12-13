@@ -4,8 +4,8 @@ import datetime as dt
 # Should not be able to create sprint without logging in
 def test_create_sprint_not_logged_in(client):
     resp = client.post("/createSprints")
-    assert resp.status_code == 200
-    assert b"Log in or sign up" in resp.data
+    assert resp.status_code == 403
+    assert b"Forbidden" in resp.data
 
 # Should be able to create sprint without error
 def test_create_sprint_success(admin_client):
@@ -45,3 +45,8 @@ def test_delete_sprint_admin(admin_client):
 
     assert resp.status_code == 200
     assert b"Sprint deleted successfully" in resp.data
+
+
+def test_protected_route_requires_login(client):
+    response = client.get("/sprints")
+    assert response.status_code == 403

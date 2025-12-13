@@ -1,0 +1,25 @@
+Notes
+
+A01:2021 – Broken Access Control
+
+Tests:
+    - sprint_test.py
+    - ensure admin for certain actions (refer to tests for 403)
+    - ensure direct url does not allow actions
+    Demonstrates server-side authorization, not UI-only
+
+A02:2021 – Cryptographic Failures
+    - auth_test.py
+    Demonstrates that passwords are hashed when database access is granted
+
+A03:2021 – Injection (SQL Injection)
+    - auth_test.py
+    Demonstrates that attempting to log in with SQL commands only returns the login page with "invalid login"
+
+A06:2021 – Vulnerable & Outdated Components
+    - pipeline
+    Demonstrates that vulns are scanned for in pipeline through dependencies
+
+A07:2021 – Identification & Authentication Failures
+    - Have to log in to get to pages
+    - auth_test.py
