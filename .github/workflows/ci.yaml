@@ -32,7 +32,7 @@ jobs:
       # Step 4: Flake8 linting
       - name: Flake8 lint
         run: |
-          flake8 app.py
+          flake8 run.py
           flake8 app/db
           flake8 app/routes
           flake8 app/utils
