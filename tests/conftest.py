@@ -4,11 +4,12 @@ import sys
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, PROJECT_ROOT)
-import app as flask_app
+from app import create_app
 
 
 @pytest.fixture
 def app():
+    flask_app = create_app()
     flask_app.config.update(
         TESTING=True,
         WTF_CSRF_ENABLED=False,
