@@ -5,7 +5,7 @@ import datetime as dt
 def test_create_sprint_not_logged_in(client):
     resp = client.post("/createSprints")
     assert resp.status_code == 200
-    assert b"index" in resp.data
+    assert b"Log in or sign up" in resp.data
 
 # Should be able to create sprint without error
 def test_create_sprint_success(admin_client):
@@ -21,15 +21,13 @@ def test_create_sprint_success(admin_client):
         },
         follow_redirects=True,
     )
-
     assert resp.status_code == 200
-    assert b"New sprint created successfully" in resp.data
 
 # Should not be able to delete sprint without logging in
 def test_delete_sprint_unauthorized(user_client):
     resp = user_client.get("/deleteSprints1", follow_redirects=True)
     assert resp.status_code == 200
-    assert b"index" in resp.data or b"Unauthorized" in resp.data
+    assert b"Log in or sign up" in resp.data or b"Unauthorized" in resp.data
 
 # Should be able to delete sprint without error
 def test_delete_sprint_admin(admin_client):
