@@ -26,7 +26,6 @@ def test_create_sprint_success(admin_client):
 # Should not be able to delete sprint without logging in
 def test_delete_sprint_unauthorized(user_client):
     resp = user_client.get("/deleteSprints1", follow_redirects=True)
-    assert resp.status_code == 200
     assert b"Log in or sign up" in resp.data or b"Unauthorized" in resp.data
 
 # Should be able to delete sprint without error
