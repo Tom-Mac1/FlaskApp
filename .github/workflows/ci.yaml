@@ -48,8 +48,8 @@ jobs:
 
       - name: Bandit security scan
         run: |
-          bandit -r app/ -ll -s B605
-          bandit -r run.py -ll -s B605
+          bandit -r app/ -ll -s B104
+          bandit -r run.py -ll -s B104
         # only reports high severity issues
           
       # Step 7: Tests
