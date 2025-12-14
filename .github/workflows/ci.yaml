@@ -28,6 +28,7 @@ jobs:
           pip install -r requirements.txt
           pip install flake8 safety pip-audit
           pip install pytest
+          pip install bandit
 
       # Step 4: Flake8 linting
       - name: Flake8 lint
@@ -45,6 +46,12 @@ jobs:
       - name: Pip CVE audit
         run: pip-audit
 
+      - name: Bandit security scan
+        run: |
+          bandit -r app/ -ll 
+          bandit -r run.py -ll
+        # only reports high severity issues
+          
       # Step 7: Tests
       - name: Run unit tests
         run: pytest -v
